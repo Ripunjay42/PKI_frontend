@@ -11,7 +11,6 @@ const VideoStream = () => {
         {/* Local Video Stream */}
         <video
           src={localVideoPath}
-          controls
           autoPlay
           muted
           loop
