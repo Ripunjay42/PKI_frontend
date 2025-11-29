@@ -151,7 +151,7 @@ const RevocationList = ({
             Select components to be added to revocation list
           </Typography>
           <Stack spacing={1} sx={{ fontWeight: 700 }}>
-            {["ECU", "HCU"].map((comp) => (
+            {["HCU"].map((comp) => (
               <Box key={comp}>
                 <label>
                   <input

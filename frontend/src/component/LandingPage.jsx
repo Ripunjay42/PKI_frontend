@@ -21,7 +21,7 @@ const LandingPage = ({ onModeSelect }) => {
       <main className="flex-1 px-4 py-4 mt-10">
         <div className="flex flex-col gap-8">
           {/* Top Row - Image and Cards */}
-          <div className="flex flex-col lg:flex-row gap-16 items-start justify-center">
+          <div className="flex flex-col lg:flex-row gap-16 items-center justify-center">
             
             {/* Left Side - Image */}
             <div className="flex flex-col items-center">
@@ -36,7 +36,7 @@ const LandingPage = ({ onModeSelect }) => {
             </div>
 
             {/* Right Side - Mode Selection */}
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-row lg:flex-col items-center justify-center  gap-4">
 
               {/* Static Mode Card */}
               <div
@@ -66,7 +66,10 @@ const LandingPage = ({ onModeSelect }) => {
               </div>
 
               {/* Real-time Mode Card */}
-              <div className="w-full max-w-sm p-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg relative overflow-hidden cursor-not-allowed">
+              <div 
+                onClick={() => onModeSelect("realtime")}
+                className="w-full max-w-sm p-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg relative overflow-hidden cursor-pointer"
+              >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
                     <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +78,10 @@ const LandingPage = ({ onModeSelect }) => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="text-xl font-bold text-white">Real-time Demo</h4>
+                    <h4 className="text-xl font-bold text-white">Live Demo</h4>
+                    <span className="inline-block mt-1 px-2 py-0.5 bg-white/25 text-white text-xs font-semibold rounded-full">
+                      Available
+                    </span>
                   </div>
                 </div>
                 <p className="text-white/90 leading-relaxed text-sm">
@@ -83,10 +89,9 @@ const LandingPage = ({ onModeSelect }) => {
                   real-time headlight and indicator status via MQTT.
                 </p>
                 <button 
-                  disabled
-                  className="w-full mt-4 py-3 bg-white/20 text-white/70 font-semibold rounded-xl cursor-not-allowed"
+                  className="w-full mt-4 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-xl"
                 >
-                  Enter Real-time Demo →
+                  Enter Live Demo →
                 </button>
               </div>
             </div>

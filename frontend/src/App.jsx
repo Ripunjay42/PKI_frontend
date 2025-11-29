@@ -20,12 +20,13 @@ import logo_cca from './assets/logo_cca.png';
 import './App.css';
 import styled from 'styled-components';
 import Home from './Home';
-import InVehicleServer from './component/InVehicleServer';
+import InVehicleServer from './component/InVehicleServerNew';
 import InstrumentCluster from './component/InstrumentCluster';
 import HeadLightUnit from './component/HeadlightUnit';
 import ElectronicThrottleBody from './component/ElectronicThrottleBody';
 import EngineControlUnit from './component/EngineControlUnit';
 import LandingPage from './component/LandingPage';
+import LiveDemo from './realtimeDemo/LiveDemo';
 
 const StyledWrapper = styled.div`
   button {
@@ -104,7 +105,9 @@ function App() {
       if (mode === 'static') {
         setCurrentMode('static');
       }
-      // 'realtime' mode is not clickable yet
+      if (mode === 'realtime') {
+        setCurrentMode('realtime');
+      }
     };
 
     const handleBackToLanding = () => {
@@ -121,6 +124,12 @@ function App() {
   if (currentMode === null) {
     return <LandingPage onModeSelect={handleModeSelect} />;
   }
+
+  // Show Live Demo for realtime mode
+  if (currentMode === 'realtime') {
+    return <LiveDemo onBack={handleBackToLanding} />;
+  }
+
   const componentMap = {
     'In-Vehicle Server': <InVehicleServer onValidationResult={handleValidationUpdate} />,
     'Instrument Cluster': <InstrumentCluster/>,
@@ -270,7 +279,7 @@ function App() {
               alignItems: 'flex-start',
               justifyContent: 'center',
               p: { xs: 1, md: 3 },
-              minHeight: '70vh',
+              minHeight: '60vh',
               borderRadius: 3,
               mx: 'auto',
               maxWidth: '100vw',
@@ -287,6 +296,7 @@ function App() {
       py: 2,
       position: selectedComponent ? 'sticky' : 'static',
       top: 0,
+      maxWidth: '45vw',
     }}
   >
     <Box
