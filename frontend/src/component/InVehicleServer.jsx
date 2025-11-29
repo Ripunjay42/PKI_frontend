@@ -668,6 +668,10 @@ const handleValidateAndVerify = (component) => {
             onClick={() => {
               setShowData((prev) => !prev);
               setShowOperation(false);
+              setShowCertificateHcu(false);
+              setShowCertificateEcu(false);
+              setShowRevokeBox(false);
+              setShowValidationBox(false);
             }}
             sx={{
               background: 'linear-gradient(135deg, #6A1B9A 0%, #8E24AA 100%)',
@@ -677,12 +681,6 @@ const handleValidateAndVerify = (component) => {
               borderRadius: 3,
               boxShadow: '0 4px 15px rgba(106, 27, 154, 0.3)',
               py: 1.5,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #8E24AA 0%, #6A1B9A 100%)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 6px 20px rgba(106, 27, 154, 0.4)',
-              },
             }}
           >
             Connected Devices
@@ -698,6 +696,10 @@ const handleValidateAndVerify = (component) => {
             onClick={() => {
               setShowOperation((prev) => !prev);
               setShowData(false);
+              setShowCertificateHcu(false);
+              setShowCertificateEcu(false);
+              setShowRevokeBox(false);
+              setShowValidationBox(false);
             }}
             sx={{
               background: 'linear-gradient(135deg, #00838F 0%, #00ACC1 100%)',
@@ -707,12 +709,6 @@ const handleValidateAndVerify = (component) => {
               borderRadius: 3,
               boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
               py: 1.5,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #00ACC1 0%, #00838F 100%)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
-              },
             }}
           >
             Operations
@@ -739,11 +735,6 @@ const handleValidateAndVerify = (component) => {
                 borderRadius: 3,
                 boxShadow: '0 3px 12px rgba(156, 67, 112, 0.3)',
                 py: 1.2,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #c2185b 0%, #9c4370 100%)',
-                  transform: 'translateY(-2px)',
-                },
               }}
             >
               Certificate Revocation List
@@ -766,11 +757,6 @@ const handleValidateAndVerify = (component) => {
                 borderRadius: 3,
                 boxShadow: '0 3px 12px rgba(56, 142, 60, 0.3)',
                 py: 1.2,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)',
-                  transform: 'translateY(-2px)',
-                },
               }}
             >
               Validation
@@ -822,11 +808,6 @@ const handleValidateAndVerify = (component) => {
                 borderRadius: 3,
                 boxShadow: '0 4px 15px rgba(13, 146, 118, 0.3)',
                 py: 1.2,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #26a69a 0%, #0D9276 100%)',
-                  transform: 'translateY(-2px)',
-                },
               }}
             >
               HeadLight Unit Certificate

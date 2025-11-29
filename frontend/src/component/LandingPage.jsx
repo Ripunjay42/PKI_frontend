@@ -41,7 +41,7 @@ const LandingPage = ({ onModeSelect }) => {
               {/* Static Mode Card */}
               <div
                 onClick={() => onModeSelect("static")}
-                className="w-full max-w-sm p-6 rounded-2xl cursor-pointer bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-1 active:scale-[0.98]"
+                className="w-full max-w-sm p-6 rounded-2xl cursor-pointer bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
@@ -60,7 +60,7 @@ const LandingPage = ({ onModeSelect }) => {
                   Explore PKI-based HCU certificate 
                   validation inside secure hardware devices.
                 </p>
-                <button className="w-full mt-4 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-xl transition-colors duration-200">
+                <button className="w-full mt-4 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-xl">
                   Enter Static Demo →
                 </button>
               </div>

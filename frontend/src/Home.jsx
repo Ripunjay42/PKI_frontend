@@ -102,11 +102,6 @@ const Home = ({setSelectedCategory }) => {
               width: '100%',
               borderRadius: 3,
               overflow: 'hidden',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-4px)',
-                boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-              },
             }}
           >
             <Box
@@ -134,7 +129,6 @@ const Home = ({setSelectedCategory }) => {
                   maxHeight: '100%',
                   width: '100%',
                   objectFit: 'contain',
-                  transition: 'transform 0.3s ease',
                 }}
                 onClick={() => setSelectedCategory("components")}
               />
@@ -175,11 +169,6 @@ const Home = ({setSelectedCategory }) => {
               width: '100%',
               borderRadius: 3,
               overflow: 'hidden',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-4px)',
-                boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
-              },
             }}
           >
             <Box

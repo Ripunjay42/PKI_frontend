@@ -63,12 +63,7 @@
     width: 100%;
     max-width: 350px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
     justify-items: 'center';
-}
-
-.mqtt-card:hover {
-    transform: scale(1.05);
 }
 
 .mqtt-card h2 {
@@ -94,7 +89,6 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    transition: color 0.3s ease;
 }
 
 .device-name:hover {
@@ -195,7 +189,6 @@ align-content: center;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
 }
 
 .dialog-box button:hover {

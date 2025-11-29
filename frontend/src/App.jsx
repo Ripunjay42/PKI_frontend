@@ -11,7 +11,6 @@ import {
   Paper,
   Tooltip,
 } from '@mui/material';
-import { motion } from 'framer-motion';
 import cdac_logo1 from './assets/cdac_logo1.png';
 import cca_meity from './assets/cca_meity.png';
 import tvs_logo from './assets/tvs_logo.png';
@@ -27,7 +26,6 @@ import HeadLightUnit from './component/HeadlightUnit';
 import ElectronicThrottleBody from './component/ElectronicThrottleBody';
 import EngineControlUnit from './component/EngineControlUnit';
 import LandingPage from './component/LandingPage';
-const MotionBox = motion(Box);
 
 const StyledWrapper = styled.div`
   button {
@@ -37,7 +35,6 @@ const StyledWrapper = styled.div`
     padding: 0;
     cursor: pointer;
     outline-offset: 4px;
-    transition: filter 250ms;
     user-select: none;
     touch-action: manipulation;
   }
@@ -51,7 +48,6 @@ const StyledWrapper = styled.div`
     border-radius: 12px;
     background: hsl(0deg 0% 0% / 0.25);
     transform: translateY(2px);
-    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
   }
   .edge {
     position: absolute;
@@ -77,18 +73,12 @@ const StyledWrapper = styled.div`
     color: white;
     background: hsl(345deg 100% 47%);
     transform: translateY(-4px);
-    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-  }
-  button:hover {
-    filter: brightness(110%);
   }
   button:hover .front {
     transform: translateY(-6px);
-    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
   }
   button:active .front {
     transform: translateY(-2px);
-    transition: transform 34ms;
   }
   button:focus:not(:focus-visible) {
     outline: none;
@@ -273,7 +263,6 @@ function App() {
             sx={{
               marginTop: -4,
               overflow: 'hidden',
-              transition: 'all 0.5s ease',
               flexDirection: {
                 xs: 'column',
                 md: 'row',
@@ -292,7 +281,6 @@ function App() {
     xs={12}
     md={selectedComponent ? 6 : 12}
     sx={{
-      transition: 'all 0.5s ease',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'flex-start',
@@ -305,7 +293,6 @@ function App() {
       sx={{
         width: '100%',
         maxWidth: selectedComponent ? '700px' : '950px',
-        transition: 'max-width 0.5s',
         position: 'relative',
         borderRadius: '16px',
         bgcolor: '#ffffff',
@@ -345,7 +332,6 @@ function App() {
     objectFit: 'contain',
     maxHeight: selectedComponent ? '95vh' : '85vh', 
     height: 'auto',
-    transition: 'all 0.5s ease',
     borderRadius: '12px',
   }}
 />
@@ -407,12 +393,6 @@ function App() {
         boxShadow: selectedComponent === comp.name 
           ? '0 6px 20px rgba(25, 118, 210, 0.4)' 
           : '0 4px 12px rgba(0,0,0,0.1)',
-        transition: 'all 0.3s ease-in-out',
-        '&:hover': {
-          backgroundColor: selectedComponent === comp.name ? '#1565c0' : '#f0f7ff',
-          boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
-          transform: 'translate(-50%, -50%) scale(1.05)',
-        },
       }}
     >
       {comp.name}
@@ -439,11 +419,7 @@ function App() {
         alignItems: 'flex-start',
       }}
     >
-      <MotionBox
-        initial={{ x: '100%', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: '100%', opacity: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+      <Box
         style={{ width: '100%', maxWidth: '700px' }}
       >
         <Box
@@ -470,7 +446,7 @@ function App() {
             {componentMap[selectedComponent]}
           </Box>
         </Box>
-      </MotionBox>
+      </Box>
     </Grid>
   )}
 </Grid>
