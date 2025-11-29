@@ -127,11 +127,16 @@ function App() {
 
   // Show Live Demo for realtime mode
   if (currentMode === 'realtime') {
-    return <LiveDemo onBack={handleBackToLanding} />;
+    const isHcuValidated = validationStatus['Headlight Unit'] === true;
+    return <LiveDemo onBack={handleBackToLanding} isValidated={isHcuValidated} />;
   }
 
+  const handleGoToLiveDemo = () => {
+    setCurrentMode('realtime');
+  };
+
   const componentMap = {
-    'In-Vehicle Server': <InVehicleServer onValidationResult={handleValidationUpdate} />,
+    'In-Vehicle Server': <InVehicleServer onValidationResult={handleValidationUpdate} onGoToLiveDemo={handleGoToLiveDemo} />,
     'Instrument Cluster': <InstrumentCluster/>,
     'Engine Control Unit': <EngineControlUnit onValidationResult={handleValidationUpdate} />,
     'Light control Unit': <HeadLightUnit onValidationResult={handleValidationUpdate} />,

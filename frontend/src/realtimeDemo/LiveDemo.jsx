@@ -4,8 +4,9 @@ import BatteryMeter from './BatteryMeter';
 import StatusBar from './StatusBar';
 import VehicleIndicators from './VehicleIndicators';
 import Car3DView from './Car3DView';
+import VideoStream from './VideoStream';
 
-const LiveDemo = ({ onBack }) => {
+const LiveDemo = ({ onBack, isValidated = true }) => {
   const [time, setTime] = useState(new Date());
   const [speed, setSpeed] = useState(0);
   const [battery, setBattery] = useState(100);
@@ -79,10 +80,10 @@ const LiveDemo = ({ onBack }) => {
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         setSpeed(prev => Math.max(prev - 10, 0));
-      } else if (e.key === 'ArrowRight' && !e.repeat) {
+      } else if (e.key === 'ArrowRight' && !e.repeat && isValidated) {
         e.preventDefault();
         setRightTurnActive(true);
-      } else if (e.key === 'ArrowLeft' && !e.repeat) {
+      } else if (e.key === 'ArrowLeft' && !e.repeat && isValidated) {
         e.preventDefault();
         setLeftTurnActive(true);
       }
@@ -108,7 +109,7 @@ const LiveDemo = ({ onBack }) => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, []);
+  }, [isValidated]);
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-2 sm:p-4">
@@ -162,7 +163,7 @@ const LiveDemo = ({ onBack }) => {
                 <div className="bg-gray-900/90 backdrop-blur-sm border-2 border-gray-700 rounded-3xl overflow-hidden p-2 shadow-2xl w-full" style={{ minHeight: '352px', height: '528px', maxWidth: '990px' }}>
                   <div className="h-full w-full">
                     <div className="bg-gray-900 border-0 rounded-2xl h-full w-full overflow-hidden relative">
-                      <Car3DView />
+                      {isValidated ? <VideoStream /> : <Car3DView />}
                     </div>
                   </div>
                 </div>

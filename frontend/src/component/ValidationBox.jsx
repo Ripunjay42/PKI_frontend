@@ -20,6 +20,7 @@ const ValidationBox = ({
   hcuTimestamps,
   ecuTimestamps,
   showECU = false,
+  onGoToLiveDemo,
 }) => {
   return (
     <Box mt={2}>
@@ -110,6 +111,25 @@ const ValidationBox = ({
                 >
                   Result: {hcuValidationResult ? "✅ Valid" : "❌ Invalid"}
                 </Typography>
+              )}
+
+              {/* Go to Live Demo button - only show when validation is successful */}
+              {hcuValidationResult === true && onGoToLiveDemo && (
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={onGoToLiveDemo}
+                  sx={{
+                    mt: 2,
+                    fontWeight: 600,
+                    background: 'linear-gradient(135deg, #00838F 0%, #00ACC1 100%)',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #006064 0%, #0097A7 100%)',
+                    }
+                  }}
+                >
+                  Go to Live Demo
+                </Button>
               )}
             </Box>
           </Grid>

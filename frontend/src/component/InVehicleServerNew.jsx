@@ -91,7 +91,7 @@ const getCertificateData = () => {
   };
 };
 
-const InVehicleServer = ({ onValidationResult }) => {
+const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
   // UI State
   const [showData, setShowData] = useState(false);
   const [showOperation, setShowOperation] = useState(false);
@@ -384,6 +384,7 @@ const InVehicleServer = ({ onValidationResult }) => {
           hcuTimestamps={hcuTimestamps}
           ecuTimestamps={ecuTimestamps}
           showECU={false}
+          onGoToLiveDemo={onGoToLiveDemo}
         />
       )}
     </Container>
