@@ -126,16 +126,14 @@ const LiveDemo = ({ onBack, isValidated: propValidated = false }) => {
       </div>
 
       {/* Test Validation Button */}
-      {!isValidated && (
         <div className="absolute top-4 right-4 z-50">
           <button
-            onClick={() => setIsValidated(true)}
+            onClick={() => setIsValidated(!isValidated)}
             className="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg flex items-center gap-2 transition-colors"
           >
             <span>Test Validate</span>
           </button>
         </div>
-      )}
 
       {/* Oval Dashboard Container */}
       <div className="relative w-full max-w-[1220px] aspect-16/7.6">
