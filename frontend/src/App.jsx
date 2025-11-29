@@ -15,7 +15,7 @@ import { motion } from 'framer-motion';
 import cdac_logo1 from './assets/cdac_logo1.png';
 import cca_meity from './assets/cca_meity.png';
 import tvs_logo from './assets/tvs_logo.png';
-import sunboard2 from './assets/sunboard2.png';
+import sunboard2 from './assets/reepl3.png';
 import emblem1 from './assets/emblem1.png';
 import logo_cca from './assets/logo_cca.png';
 import './App.css';
@@ -26,6 +26,7 @@ import InstrumentCluster from './component/InstrumentCluster';
 import HeadLightUnit from './component/HeadlightUnit';
 import ElectronicThrottleBody from './component/ElectronicThrottleBody';
 import EngineControlUnit from './component/EngineControlUnit';
+import LandingPage from './component/LandingPage';
 const MotionBox = motion(Box);
 
 const StyledWrapper = styled.div`
@@ -102,21 +103,39 @@ function App() {
     const [validationStatus, setValidationStatus] = useState({});
     const [selectedComponent, setSelectedComponent] = useState('');
     const [selectedCategory, setSelectedCategory] = useState("home");
+    const [currentMode, setCurrentMode] = useState(null); // null = landing page, 'static' = main app
     /* =============== STATE ADD BY LOKESH =================== */
      
     const [pendingValidation, setPendingValidation] = useState(null);
 
     /* ======================================================= */
 
+    const handleModeSelect = (mode) => {
+      if (mode === 'static') {
+        setCurrentMode('static');
+      }
+      // 'realtime' mode is not clickable yet
+    };
+
+    const handleBackToLanding = () => {
+      setCurrentMode(null);
+      setSelectedCategory("home");
+      setSelectedComponent('');
+    };
 
     const handleValidationUpdate = (name, isValid) => {
       setValidationStatus(prev => ({ ...prev, [name]: isValid }));
     };
+
+  // Show landing page if no mode is selected
+  if (currentMode === null) {
+    return <LandingPage onModeSelect={handleModeSelect} />;
+  }
   const componentMap = {
     'In-Vehicle Server': <InVehicleServer onValidationResult={handleValidationUpdate} />,
     'Instrument Cluster': <InstrumentCluster/>,
     'Engine Control Unit': <EngineControlUnit onValidationResult={handleValidationUpdate} />,
-    'Headlight Unit': <HeadLightUnit onValidationResult={handleValidationUpdate} />,
+    'Light control Unit': <HeadLightUnit onValidationResult={handleValidationUpdate} />,
     'Electronic Throttle Body (Ride-by-wire)':<ElectronicThrottleBody/>
   };
   
@@ -131,9 +150,9 @@ function App() {
 
   
   return (
-    <Box sx={{ height: '100vh', bgcolor: '#F5F5F5', overflowX: 'hidden', width: '100vw' }}>
+    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%)', overflowX: 'hidden', width: '100vw' }}>
       {/* Top AppBar */}
-<AppBar position="static">
+<AppBar position="static" elevation={4}>
   <Toolbar
     sx={{
       bgcolor: 'lightblue',
@@ -200,38 +219,12 @@ function App() {
 
 
       {/* Logo Header */}
-<Container maxWidth="xl" sx={{ px: { xs: 3, sm: 6, md: 10 }, py: 3 }}>
-  {/* <Box
-    display="flex"
-    justifyContent="space-between"
-    alignItems="flex-end"
-    flexWrap="wrap"
-    gap={4} // More spacing between logo and nav
-  > */}
-    {/* Logos: More spacing and scaling
-    <Box
-      display="flex"
-      flexDirection={{ xs: 'column', sm: 'row' }}
-      alignItems="center"
-       gap={{ xs: 6, sm: 8, md: 12, lg: 16 }}
-      flexWrap="wrap"
-      flexGrow={1}
-    >
-
-      <img
-        src={tvs_logo}
-        alt="TVS logo"
-        style={{ width: 'auto', maxHeight: '80px', maxWidth: '900px' }}
-      />
-
-    </Box> */}
-
+<Container maxWidth="xl" sx={{ px: { xs: 3, sm: 6, marginTop: 10 }, py: 2 }}>
     {/* Navigation Buttons */}
     <Box
-      mt={{ xs: 3, sm: 0 }}
-      width={{ xs: '100%', sm: 'auto' }}
+      width="100%"
       display="flex"
-      justifyContent={{ xs: 'center', sm: 'flex-end' }}
+      justifyContent="center"
     >
       <StyledWrapper>
         <Stack
@@ -245,7 +238,7 @@ function App() {
           >
             <span className="shadow" />
             <span className="edge" />
-            <span className="front text">Home</span>
+            <span className="front text">🏠 Home</span>
           </button>
           <button
             className={selectedCategory === 'components' ? 'active' : ''}
@@ -253,12 +246,18 @@ function App() {
           >
             <span className="shadow" />
             <span className="edge" />
-            <span className="front text">Components</span>
+            <span className="front text">⚙️ Components</span>
+          </button>
+          <button
+            onClick={handleBackToLanding}
+          >
+            <span className="shadow" />
+            <span className="edge" />
+            <span className="front text">← Exit</span>
           </button>
         </Stack>
       </StyledWrapper>
     </Box>
-  {/* </Box> */}
 </Container>
 
 
@@ -270,22 +269,23 @@ function App() {
         {/* Components Section */}
         {selectedCategory === 'components' && (
          <Grid
-  container
-  component={Paper}
-  elevation={4}
-  sx={{
-    bgcolor: '#f5f5f5',
-    overflow: 'hidden',
-    transition: 'all 0.5s ease',
-    flexDirection: {
-      xs: 'column',
-      md: selectedComponent ? 'row' : 'column', // Image in center or left
-    },
-    alignItems: selectedComponent ? 'stretch' : 'center', // center if nothing selected
-    justifyContent: 'center',
-    p: 2,
-  }}
->
+            container
+            sx={{
+              marginTop: -4,
+              overflow: 'hidden',
+              transition: 'all 0.5s ease',
+              flexDirection: {
+                xs: 'column',
+                md: 'row',
+              },
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+              p: { xs: 1, md: 3 },
+              minHeight: '70vh',
+              borderRadius: 3,
+              mx: 'auto',
+              maxWidth: '100vw',
+            }}>
   {/* Left Side - Image */}
   <Grid
     item
@@ -295,23 +295,48 @@ function App() {
       transition: 'all 0.5s ease',
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       py: 2,
-      
+      position: selectedComponent ? 'sticky' : 'static',
+      top: 0,
     }}
   >
     <Box
       sx={{
         width: '100%',
-        maxWidth: selectedComponent ? '700px' : '1000px',
+        maxWidth: selectedComponent ? '700px' : '950px',
         transition: 'max-width 0.5s',
         position: 'relative',
-        border: '2px solid' ,px:1
+        borderRadius: '16px',
+        bgcolor: '#ffffff',
+        px: 3,
+        pb: 3,
+        pt: 2,
+        boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+        border: '1px solid rgba(255,255,255,0.8)',
       }}
     >
-       <Typography variant="h6" align="center">
-        Demonstration
-      </Typography>
+       <Box
+         sx={{
+           background: 'linear-gradient(90deg, #7393B3, #7393B3)',
+           py: 1.5,
+           px: 2,
+           borderRadius: 2,
+           mb: 2,
+         }}
+       >
+         <Typography 
+           variant="h5" 
+           align="center" 
+           sx={{ 
+             fontWeight: 700, 
+             color: '#fff',
+             letterSpacing: '0.5px'
+           }}
+         >
+          Demonstration
+         </Typography>
+       </Box>
       <img
   src={sunboard2}
   alt="Bike View"
@@ -321,12 +346,14 @@ function App() {
     maxHeight: selectedComponent ? '95vh' : '85vh', 
     height: 'auto',
     transition: 'all 0.5s ease',
+    borderRadius: '12px',
   }}
 />
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
+        mt={2}
         mb={1}
         gap={1}
       >
@@ -347,15 +374,8 @@ function App() {
 
       {/* Overlay Buttons */}
 {[
-  { name: 'In-Vehicle Server', top: '34%', left: '50%' },
-  { name: 'Engine Control Unit', top: '55%', left: '43%' },
-  { name: 'Headlight Unit', top: '52.5%', left: '77.1%' },
-  { name: 'Instrument Cluster', top: '18%', left: '83%' },
-  {
-    name: 'Electronic Throttle Body (Ride-by-wire)',
-    top: '75%',
-    left: '13%',
-  },
+  { name: 'In-Vehicle Server', top: '40%', left: '70%' },
+  { name: 'Light control Unit', top: '40%', left: '33%' },
 ].map((comp) => (
   <Tooltip key={comp.name} title={comp.name} arrow>
     <Button
@@ -365,28 +385,34 @@ function App() {
         top: comp.top,
         left: comp.left,
         transform: 'translate(-50%, -50%)',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        color: '#000',
+        backgroundColor: selectedComponent === comp.name ? '#1976d2' : 'rgba(255, 255, 255, 0.98)',
+        color: selectedComponent === comp.name ? '#fff' : '#333',
         fontWeight: 600,
         fontSize: {
-          xs: '0.55rem',
-          sm: '0.65rem',
-          md: '0.75rem',
-          lg: '0.85rem',
+          xs: '0.6rem',
+          sm: '0.7rem',
+          md: '0.8rem',
+          lg: '0.9rem',
         },
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        px: { xs: 0.5, sm: 1 },
-        py: { xs: 0.3, sm: 0.5 },
-        minWidth: { xs: '90px', sm: '120px', md: '140px' },
-        maxWidth: { xs: '100px', sm: '140px', md: '160px' }, // 🔹 Added for wrapping
+        border: selectedComponent === comp.name ? 'none' : '1px solid #e0e0e0',
+        borderRadius: '12px',
+        px: { xs: 1.5, sm: 2 },
+        py: { xs: 1, sm: 1.5 },
+        minWidth: { xs: '100px', sm: '130px', md: '150px' },
+        maxWidth: { xs: '120px', sm: '150px', md: '180px' },
         textAlign: 'center',
-        whiteSpace: 'normal', // 🔹 Enables text wrap
-        lineHeight: 1.2,
+        whiteSpace: 'normal',
+        lineHeight: 1.3,
         zIndex: 5,
-        boxShadow:
-          selectedComponent === comp.name ? '0 0 8px 2px #1976d2' : 'none',
+        boxShadow: selectedComponent === comp.name 
+          ? '0 6px 20px rgba(25, 118, 210, 0.4)' 
+          : '0 4px 12px rgba(0,0,0,0.1)',
         transition: 'all 0.3s ease-in-out',
+        '&:hover': {
+          backgroundColor: selectedComponent === comp.name ? '#1565c0' : '#f0f7ff',
+          boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
+          transform: 'translate(-50%, -50%) scale(1.05)',
+        },
       }}
     >
       {comp.name}
@@ -410,39 +436,35 @@ function App() {
         px: { xs: 1, sm: 2, md: 4 },
         py: 2,
         display: 'flex',
-        alignItems: 'stretch',
+        alignItems: 'flex-start',
       }}
     >
       <MotionBox
         initial={{ x: '100%', opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: '100%', opacity: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        style={{ width: '100%' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        style={{ width: '100%', maxWidth: '700px' }}
       >
         <Box
-          p={2}
+          p={{ xs: 2, md: 3 }}
           sx={{
             bgcolor: '#ffffff',
-            height: '100%',
-            borderRadius: '12px',
-            boxShadow: 3,
+            borderRadius: '16px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+            border: '1px solid rgba(255,255,255,0.8)',
+            width: '100%',
           }}
         >
           <Box
             sx={{
-              border: '1px solid #ddd',
               borderRadius: '12px',
-              p: 3,
-              bgcolor: '#f9f9f9',
-              minHeight: '250px',
+              p: { xs: 2, md: 3 },
+              background: 'linear-gradient(145deg, #e3f2fd 0%, #bbdefb 100%)',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
-              transition: 'background-color 0.3s',
-              '&:hover': {
-                bgcolor: '#f0f0f0',
-              },
+              justifyContent: 'flex-start',
+              overflow: 'visible',
             }}
           >
             {componentMap[selectedComponent]}

@@ -6,17 +6,19 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  useTheme,
-  useMediaQuery,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Paper,
+  Chip,
 } from "@mui/material";
 import vehicle from "./assets/vehicle.png";
-import sunboardbike from "./assets/sunboardbike.png";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import './index.css';
+import sunboardbike from "./assets/reep.png";
 import tvs_logo from './assets/tvs_logo.png';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SecurityIcon from '@mui/icons-material/Security';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import './index.css';
 
 const Home = ({setSelectedCategory }) => {
  
@@ -79,59 +81,143 @@ const Home = ({setSelectedCategory }) => {
   return (
     <Box
       sx={{
-        bgcolor: "#F5F5F5",
-        // px: { xs: 2, sm: 4, md: 6 },
-        // py: 2,
+        background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%)",
         width: "100%",
         minHeight: "100vh",
+        maxWidth: "92vw",
+        mx: "auto",
+        py: 2,
       }}
     >
       {/* Top images side by side on md+, stacked on xs */}
-<Grid container spacing={2}>
-  {/* Left Grid with Bike Image */}
-  <Grid item xs={12} md={6} className="image-grid">
-    <Box className="image-wrapper" sx={{ border: '2px solid' }}>
-      <Typography variant="h6" align="center">
-        Demonstration
-      </Typography>
-      <img src={sunboardbike} alt="View" className="bike-image" 
-      style={{cursor:'pointer'}}
-      onClick={() => setSelectedCategory("components")}/>
-
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        mb={1}
-        gap={1}
-      >
-        <Typography
-          variant="h6"
-          component="span"
-          color="black"
-          sx={{ fontWeight: 500 }}
-        >
-          In Collaboration with:
-        </Typography>
-        <img
-          src={tvs_logo}
-          alt="TVS logo"
-          style={{ width: 'auto', maxHeight: '80px', maxWidth: '150px' }}
-        />
-      </Box>
-    </Box>
-  </Grid>
-
-
+      <Grid container spacing={3} sx={{ alignItems: 'stretch', mb: 3 }}>
+        {/* Left Grid with Bike Image */}
+        <Grid item xs={12} md={6} className="image-grid" sx={{ display: 'flex' }}>
+          <Paper
+            elevation={4}
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              borderRadius: 3,
+              overflow: 'hidden',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                background: 'linear-gradient(90deg, #7393B3, #7393B3)',
+                py: 1.5,
+                px: 2,
+              }}
+            >
+              <Typography
+                variant="h6"
+                align="center"
+                sx={{ color: '#fff', fontWeight: '700', letterSpacing: 0.5 }}
+              >
+                Demonstration
+              </Typography>
+            </Box>
+            <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2, bgcolor: '#fff' }}>
+              <img
+                src={sunboardbike}
+                alt="View"
+                className="bike-image"
+                style={{
+                  cursor: 'pointer',
+                  maxHeight: '100%',
+                  width: '100%',
+                  objectFit: 'contain',
+                  transition: 'transform 0.3s ease',
+                }}
+                onClick={() => setSelectedCategory("components")}
+              />
+            </Box>
+            <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    mt={0}
+                    mb={1}
+                    gap={1}
+                  >
+                    <Typography
+                      variant="h6"
+                      component="span"
+                      color="black"
+                      sx={{ fontWeight: 500 }}
+                    >
+                      In Collaboration with:
+                    </Typography>
+                    <img
+                      src={tvs_logo}
+                      alt="TVS logo"
+                      style={{ width: 'auto', maxHeight: '80px', maxWidth: '150px' }}
+                    />
+                  </Box>
+          </Paper>
+        </Grid>
 
         {/* Right Grid with Vehicle Protocol Image */}
-        <Grid item xs={12} md={6} className="image-grid">
-          <Typography variant="h4" className="protocol-title">
-            Vehicle Communication Protocols
-          </Typography>
-          <Box className="image-wrapper right">
-            <img src={vehicle} alt="Vehicle View" className="vehicle-image" />
-          </Box>
+        <Grid item xs={12} md={6} className="image-grid" sx={{ display: 'flex' }}>
+          <Paper
+            elevation={4}
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              borderRadius: 3,
+              overflow: 'hidden',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 12px 24px rgba(0,0,0,0.15)',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                background: 'linear-gradient(90deg, #483248)',
+                py: 1.5,
+                px: 2,
+              }}
+            >
+              <Typography
+                variant="h6"
+                align="center"
+                sx={{ color: '#fff', fontWeight: '700', letterSpacing: 0.5 }}
+              >
+                Vehicle Communication Protocols
+              </Typography>
+            </Box>
+            <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 2, bgcolor: '#fff' }}>
+              <img src={vehicle} alt="Vehicle View" className="vehicle-image" style={{ maxHeight: '100%', width: '100%', objectFit: 'contain' }} />
+            </Box>
+            <Box sx={{ py: 1.5, px: 2, bgcolor: '#fafafa', borderTop: '1px solid #eee' }}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
+                {['CAN', 'CAN FD', 'FlexRay', 'LIN', 'Ethernet', 'MOST'].map((protocol) => (
+                  <Chip
+                    key={protocol}
+                    label={protocol}
+                    size="small"
+                    sx={{
+                      bgcolor: '#e3f2fd',
+                      color: '#1565c0',
+                      fontWeight: 600,
+                      fontSize: '0.75rem',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
+          </Paper>
         </Grid>
       </Grid>
 
@@ -139,170 +225,217 @@ const Home = ({setSelectedCategory }) => {
       {/* Content below: two columns on md+, stacked on xs */}
       <Grid
         container
-        spacing={{ xs: 2, md: 4 }}
-        px={{ xs: 1, md: 3 }}
-        py={2}
+        spacing={3}
         sx={{
           flex: 1,
-          bgcolor: "#f0f4f8", // light outer background
-          borderRadius: 2,
-          boxShadow: 1,
+          alignItems: 'stretch',
         }}
       >
         {/* Left Column - PKI Info */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            flex: 1,
-            p: { xs: 2, sm: 3 },
-            bgcolor: "#c8e0f9ff", // white background
-            borderRadius: 2,
-            boxShadow: 2,
-          }}
-        >
-          <Typography
-            variant="h5"
-            fontWeight={600}
-            mb={2}
-            color="primary"
-            sx={{ fontSize: { xs: "1.3rem", md: "1.6rem" } }}
+        <Grid item xs={12} md={6} className="image-grid" sx={{ display: 'flex' }}>
+          <Paper
+            elevation={4}
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              p: { xs: 2, sm: 3 },
+              borderRadius: 3,
+              background: 'linear-gradient(145deg, #e3f2fd 0%, #bbdefb 100%)',
+            }}
           >
-            {pkiData.title}
-          </Typography>
-
-          {/* Overview */}
-          <List dense sx={{
-            '& .MuiListItemText-primary': {
-              fontSize: '1.3rem',
-              fontWeight: 600,
-              color: '#333',
-              fontFamily: 'Segoe UI, sans-serif',
-            }
-          }}>
-
-            {pkiData.overview.map((item, index) => (
-              <ListItem key={index} disablePadding>
-                <ListItemText primary={`• ${item}`} />
-              </ListItem>
-            ))}
-          </List>
-
-
-          {/* Benefits */}
-          <Accordion sx={{ mt: 2, bgcolor: "#fdfdfd" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6" sx={{ fontSize: { xs: "1rem", md: "1.1rem" } }}>
-                🔐 Key Benefits
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+              <SecurityIcon sx={{ color: '#1976d2', fontSize: 32 }} />
+              <Typography
+                variant="h5"
+                fontWeight={700}
+                color="#1565c0"
+                sx={{ fontSize: { xs: "1.3rem", md: "1.5rem" } }}
+              >
+                {pkiData.title}
               </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Divider sx={{ mb: 1 }} />
-              <List dense>
-                {Object.entries(pkiData.benefits).map(([category, items]) => (
-                  <Box key={category} sx={{ mb: 1 }}>
-                    <Typography fontWeight="700" gutterBottom>
-                      {category}
-                    </Typography>
-                    <List dense>
-                      {items.map((item, index) => (
-                        <ListItem key={index} disablePadding>
-                          <ListItemText primary={`• ${item}`} />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Box>
+            </Box>
+
+            {/* Overview */}
+            <Paper
+              elevation={1}
+              sx={{
+                p: 2,
+                mb: 2,
+                borderRadius: 2,
+                bgcolor: 'rgba(255,255,255,0.8)',
+              }}
+            >
+              <List dense sx={{
+                '& .MuiListItemText-primary': {
+                  fontSize: '0.95rem',
+                  color: '#333',
+                  fontFamily: 'Segoe UI, sans-serif',
+                  lineHeight: 1.6,
+                }
+              }}>
+                {pkiData.overview.map((item, index) => (
+                  <ListItem key={index} disablePadding sx={{ py: 0.3 }}>
+                    <ListItemText primary={`• ${item}`} />
+                  </ListItem>
                 ))}
               </List>
-            </AccordionDetails>
-          </Accordion>
+            </Paper>
 
-          {/* Use Cases */}
-          <Accordion sx={{ mt: 1, bgcolor: "#fdfdfd" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6" sx={{ fontSize: { xs: "1rem", md: "1.1rem" } }}>
-                🚘 Use Cases
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Divider sx={{ mb: 1 }} />
-              <List dense>
-                {Object.entries(pkiData.useCases).map(([category, items]) => (
-                  <Box key={category} sx={{ mb: 1 }}>
-                    <Typography fontWeight="700" gutterBottom>
-                      {category}
-                    </Typography>
-                    <List dense>
-                      {items.map((item, index) => (
-                        <ListItem key={index} disablePadding>
-                          <ListItemText primary={`• ${item}`} />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Box>
-                ))}
-              </List>
-            </AccordionDetails>
-          </Accordion>
-        </Grid>
-
-        {/* Right Column - Protocol Info */}
-        <Grid
-          item
-          xs={12}
-          md={6}
-          sx={{
-            flex: 1,
-            p: { xs: 2, sm: 3 },
-            bgcolor: "#c8e0f9ff", // very light blueish background
-            borderRadius: 2,
-            boxShadow: 2,
-          }}
-        >
-          <Typography
-            variant="h5"
-            fontWeight={600}
-            mb={2}
-            color="secondary"
-            sx={{ fontSize: { xs: "1.3rem", md: "1.6rem" } }}
-          >
-            {vehicleData.title}
-          </Typography>
-
-          {[
-            { label: "1. CAN (Controller Area Network)", items: vehicleData.CAN1 },
-            { label: "2. CAN FD (Flexible Data Rate)", items: vehicleData.CANFD },
-            { label: "3. FlexRay", items: vehicleData.FlexRay },
-            { label: "4. LIN (Local Interconnect Network)", items: vehicleData.LIN },
-            { label: "5. Automotive Ethernet", items: vehicleData.Auto },
-            {
-              label: "6. MOST (Media Oriented Systems Transport)",
-              items: vehicleData.MOST,
-            },
-          ].map((protocol, idx) => (
-            <Accordion key={idx} sx={{ mt: idx === 0 ? 0 : 1, bgcolor: "#ffffff" }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6" sx={{ fontSize: { xs: "1rem", md: "1.1rem" } }}>
-                  {protocol.label}
+            {/* Benefits */}
+            <Accordion
+              sx={{
+                mt: 2,
+                borderRadius: '12px !important',
+                overflow: 'hidden',
+                '&:before': { display: 'none' },
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                sx={{
+                  bgcolor: '#fff',
+                  '&:hover': { bgcolor: '#f5f5f5' },
+                }}
+              >
+                <Typography variant="h6" sx={{ fontSize: { xs: "1rem", md: "1.1rem" }, fontWeight: 600 }}>
+                  🔐 Key Benefits
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
-                <Divider sx={{ mb: 1 }} />
+              <AccordionDetails sx={{ bgcolor: '#fafafa' }}>
                 <List dense>
-                  {protocol.items.map((item, i) => (
-                    <ListItem key={i} disablePadding>
-                      <ListItemText primary={`• ${item}`} />
-                    </ListItem>
+                  {Object.entries(pkiData.benefits).map(([category, items]) => (
+                    <Box key={category} sx={{ mb: 1.5 }}>
+                      <Typography fontWeight="700" color="#1976d2" gutterBottom>
+                        {category}
+                      </Typography>
+                      <List dense>
+                        {items.map((item, index) => (
+                          <ListItem key={index} disablePadding>
+                            <ListItemText primary={`• ${item}`} sx={{ '& .MuiTypography-root': { color: '#555' } }} />
+                          </ListItem>
+                        ))}
+                      </List>
+                    </Box>
                   ))}
                 </List>
               </AccordionDetails>
             </Accordion>
-          ))}
+
+            {/* Use Cases */}
+            <Accordion
+              sx={{
+                mt: 1.5,
+                borderRadius: '12px !important',
+                overflow: 'hidden',
+                '&:before': { display: 'none' },
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              }}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                sx={{
+                  bgcolor: '#fff',
+                  '&:hover': { bgcolor: '#f5f5f5' },
+                }}
+              >
+                <Typography variant="h6" sx={{ fontSize: { xs: "1rem", md: "1.1rem" }, fontWeight: 600 }}>
+                  🚘 Use Cases
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ bgcolor: '#fafafa' }}>
+                <List dense>
+                  {Object.entries(pkiData.useCases).map(([category, items]) => (
+                    <Box key={category} sx={{ mb: 1.5 }}>
+                      <Typography fontWeight="700" color="#1976d2" gutterBottom>
+                        {category}
+                      </Typography>
+                      <List dense>
+                        {items.map((item, index) => (
+                          <ListItem key={index} disablePadding>
+                            <ListItemText primary={`• ${item}`} sx={{ '& .MuiTypography-root': { color: '#555' } }} />
+                          </ListItem>
+                        ))}
+                      </List>
+                    </Box>
+                  ))}
+                </List>
+              </AccordionDetails>
+            </Accordion>
+          </Paper>
+        </Grid>
+
+        {/* Right Column - Protocol Info */}
+        <Grid item xs={12} md={6} className="image-grid" sx={{ display: 'flex' }}>
+          <Paper
+            elevation={4}
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              p: { xs: 2, sm: 3 },
+              borderRadius: 3,
+              background: 'linear-gradient(145deg, #f3e5f5 0%, #e1bee7 100%)',
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+              <DirectionsCarIcon sx={{ color: '#7b1fa2', fontSize: 32 }} />
+              <Typography
+                variant="h5"
+                fontWeight={700}
+                color="#6a1b9a"
+                sx={{ fontSize: { xs: "1.3rem", md: "1.5rem" } }}
+              >
+                {vehicleData.title}
+              </Typography>
+            </Box>
+
+            {[
+              { label: "1. CAN (Controller Area Network)", items: vehicleData.CAN1 },
+              { label: "2. CAN FD (Flexible Data Rate)", items: vehicleData.CANFD },
+              { label: "3. FlexRay", items: vehicleData.FlexRay },
+              { label: "4. LIN (Local Interconnect Network)", items: vehicleData.LIN },
+              { label: "5. Automotive Ethernet", items: vehicleData.Auto },
+              { label: "6. MOST (Media Oriented Systems Transport)", items: vehicleData.MOST },
+            ].map((protocol, idx) => (
+              <Accordion
+                key={idx}
+                sx={{
+                  mt: idx === 0 ? 0 : 1.5,
+                  borderRadius: '12px !important',
+                  overflow: 'hidden',
+                  '&:before': { display: 'none' },
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    bgcolor: '#fff',
+                    '&:hover': { bgcolor: '#f5f5f5' },
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontSize: { xs: "0.95rem", md: "1rem" }, fontWeight: 600 }}>
+                    {protocol.label}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ bgcolor: '#fafafa' }}>
+                  <List dense>
+                    {protocol.items.map((item, i) => (
+                      <ListItem key={i} disablePadding sx={{ py: 0.3 }}>
+                        <ListItemText primary={`• ${item}`} sx={{ '& .MuiTypography-root': { color: '#555' } }} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Paper>
         </Grid>
       </Grid>
-
-
     </Box>
   );
 };

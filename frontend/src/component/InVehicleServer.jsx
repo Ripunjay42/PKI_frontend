@@ -642,44 +642,47 @@ const handleValidateAndVerify = (component) => {
   const [removeConfirmDialogOpen, setRemoveConfirmDialogOpen] = useState(false);
   const [componentToRemove, setComponentToRemove] = useState("");
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 2, sm: 4 } }}>
-      <Typography
-        variant="h5"
-        fontWeight={600}
-        mb={3}
-        color="primary"
-        textAlign="center"
-        sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}
-      >
-        {Ivsdata.title}
-      </Typography>
+    <Container maxWidth="md" sx={{ py: { xs: 1, sm: 2 }, overflow: 'visible' }}>
+      {/* Title with Icon */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 3 }}>
+        <Typography
+          variant="h5"
+          fontWeight={700}
+          color="#1565c0"
+          textAlign="center"
+          sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}
+        >
+          {Ivsdata.title}
+        </Typography>
+      </Box>
       <FunctionalitySection data={Ivsdata.function} />
       <SpecificationSection data={Ivsdata.spec} />
       <TrustedRootSection data={Ivsdata.trusted} />
-      <Grid container spacing={3} justifyContent="center" mt={3}>
+      <Grid container spacing={2} justifyContent="center" mt={3}>
         {/* Connected Devices Button */}
         <Grid item xs={12} sm={6}>
           <Button
             variant="contained"
+            fullWidth
             endIcon={<ArrowDropDownIcon />}
             onClick={() => {
               setShowData((prev) => !prev);
               setShowOperation(false);
             }}
             sx={{
-              backgroundColor: '#6A1B9A', // Deep Purple
+              background: 'linear-gradient(135deg, #6A1B9A 0%, #8E24AA 100%)',
               color: '#fff',
               fontWeight: 600,
-              fontSize: '16px',
-              borderRadius: 2,
-              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
+              fontSize: '15px',
+              borderRadius: 3,
+              boxShadow: '0 4px 15px rgba(106, 27, 154, 0.3)',
               py: 1.5,
+              transition: 'all 0.3s ease',
               '&:hover': {
-                backgroundColor: '#8849d4ff',
+                background: 'linear-gradient(135deg, #8E24AA 0%, #6A1B9A 100%)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 20px rgba(106, 27, 154, 0.4)',
               },
-              '&:active .front': {
-                background: '#8849d4ff !important'
-              }
             }}
           >
             Connected Devices
@@ -690,21 +693,25 @@ const handleValidateAndVerify = (component) => {
         <Grid item xs={12} sm={6}>
           <Button
             variant="contained"
+            fullWidth
             endIcon={<ArrowDropDownIcon />}
             onClick={() => {
               setShowOperation((prev) => !prev);
               setShowData(false);
             }}
             sx={{
-              backgroundColor: '#00838F', // Teal Blue
+              background: 'linear-gradient(135deg, #00838F 0%, #00ACC1 100%)',
               color: '#fff',
               fontWeight: 600,
-              fontSize: '16px',
-              borderRadius: 2,
-              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
+              fontSize: '15px',
+              borderRadius: 3,
+              boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
               py: 1.5,
+              transition: 'all 0.3s ease',
               '&:hover': {
-                backgroundColor: '#006064',
+                background: 'linear-gradient(135deg, #00ACC1 0%, #00838F 100%)',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
               },
             }}
           >
@@ -715,7 +722,7 @@ const handleValidateAndVerify = (component) => {
 
       {/* Certificate Revoke and Validation buttons inside Operation */}
       {showOperation && (
-        <Grid container spacing={3} justifyContent="center" mt={3}>
+        <Grid container spacing={2} justifyContent="center" mt={2}>
           <Grid item xs={12} sm={6}>
             <Button
               variant="contained"
@@ -725,15 +732,17 @@ const handleValidateAndVerify = (component) => {
                 setShowValidationBox(false);
               }}
               sx={{
-                backgroundColor: '#9c4370',
+                background: 'linear-gradient(135deg, #9c4370 0%, #c2185b 100%)',
                 color: '#fff',
                 fontWeight: 600,
-                fontSize: '15px',
-                borderRadius: 2,
-                boxShadow: '0 3px 8px rgba(0, 0, 0, 0.12)',
-                py: 1,
+                fontSize: '14px',
+                borderRadius: 3,
+                boxShadow: '0 3px 12px rgba(156, 67, 112, 0.3)',
+                py: 1.2,
+                transition: 'all 0.3s ease',
                 '&:hover': {
-                  backgroundColor: '#7b355a',
+                  background: 'linear-gradient(135deg, #c2185b 0%, #9c4370 100%)',
+                  transform: 'translateY(-2px)',
                 },
               }}
             >
@@ -750,15 +759,17 @@ const handleValidateAndVerify = (component) => {
                 setShowRevokeBox(false);
               }}
               sx={{
-                backgroundColor: '#388e3c',
+                background: 'linear-gradient(135deg, #388e3c 0%, #4caf50 100%)',
                 color: '#fff',
                 fontWeight: 600,
-                fontSize: '15px',
-                borderRadius: 2,
-                boxShadow: '0 3px 8px rgba(0, 0, 0, 0.12)',
-                py: 1,
+                fontSize: '14px',
+                borderRadius: 3,
+                boxShadow: '0 3px 12px rgba(56, 142, 60, 0.3)',
+                py: 1.2,
+                transition: 'all 0.3s ease',
                 '&:hover': {
-                  backgroundColor: '#2e7d32',
+                  background: 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)',
+                  transform: 'translateY(-2px)',
                 },
               }}
             >
@@ -769,8 +780,8 @@ const handleValidateAndVerify = (component) => {
       )}
 
       {showData && (
-        <Grid container spacing={3} justifyContent="center" mt={3}>
-          <Grid item xs={12} sm={6}>
+        <Grid container spacing={2} justifyContent="center" mt={2}>
+          {/* <Grid item xs={12} sm={6}>
             <Button
               fullWidth
               variant="contained"
@@ -793,7 +804,7 @@ const handleValidateAndVerify = (component) => {
             >
               Engine Control Unit Certificate
             </Button>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} sm={6}>
             <Button
@@ -804,16 +815,18 @@ const handleValidateAndVerify = (component) => {
                 setShowCertificateEcu(false);
               }}
               sx={{
-                backgroundColor: '#0D9276',
+                background: 'linear-gradient(135deg, #0D9276 0%, #26a69a 100%)',
                 color: '#fff',
                 fontWeight: 600,
-                fontSize: '16px',
-                borderRadius: 2,
-                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                fontSize: '15px',
+                borderRadius: 3,
+                boxShadow: '0 4px 15px rgba(13, 146, 118, 0.3)',
+                py: 1.2,
+                transition: 'all 0.3s ease',
                 '&:hover': {
-                  backgroundColor: '#0B7D66',
+                  background: 'linear-gradient(135deg, #26a69a 0%, #0D9276 100%)',
+                  transform: 'translateY(-2px)',
                 },
-                py: 1,
               }}
             >
               HeadLight Unit Certificate
@@ -824,7 +837,16 @@ const handleValidateAndVerify = (component) => {
 
       {/* ECU Certificate Section */}
       {showCertificateEcu && (
-        <Paper elevation={2} sx={{ p: { xs: 1, sm: 2 }, position: "relative", mt: 2 }}>
+        <Paper 
+          elevation={4} 
+          sx={{ 
+            p: { xs: 0, sm: 0 }, 
+            position: "relative", 
+            mt: 2,
+            borderRadius: 3,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          }}
+        >
           <IconButton
             aria-label="close"
             onClick={() => setShowCertificateEcu(false)}
@@ -845,7 +867,7 @@ const handleValidateAndVerify = (component) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              px: { xs: 1, sm: 2, md: 5 },
+              px: { xs: 1, sm: 1, md: 1 },
               py: 2,
             }}
           >
@@ -853,7 +875,7 @@ const handleValidateAndVerify = (component) => {
               className="dialog-box"
               sx={{
                 width: '100%',
-                maxWidth: 800, // control the max width of your content
+                maxWidth: 1000, // control the max width of your content
               }}
             >
               {fakedata[1001].map((device, index) => (
@@ -923,7 +945,7 @@ const handleValidateAndVerify = (component) => {
 
       {/* HCU Certificate Section */}
       {showCertificateHcu && (
-        <Paper elevation={2} sx={{ p: { xs: 1, sm: 2 }, position: "relative", mt: 2 }}>
+        <Paper elevation={2} sx={{ p: { xs: 1, sm: 1 }, position: "relative", mt: 2}}>
           <IconButton
             aria-label="close"
             onClick={() => setShowCertificateHcu(false)}
@@ -944,7 +966,7 @@ const handleValidateAndVerify = (component) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              px: { xs: 1, sm: 2, md: 5 },
+              // px: { xs: 1, sm: 2, md: 5 },
               py: 2,
             }}
           >
@@ -952,11 +974,11 @@ const handleValidateAndVerify = (component) => {
               className="dialog-box"
               sx={{
                 width: '100%',
-                maxWidth: 800, // control the max width of your content
+                maxWidth: '100%', // control the max width of your content
               }}
             >
               {fakedata[1002].map((device, index) => (
-                <Box key={index} sx={{ mb: 4 }}>
+                <Box key={index} sx={{ mb: 4, p: -2 }}>
                   <Typography variant="h6" align="center" gutterBottom fontWeight='bold'>
                     Device Certificate Details
                   </Typography>
@@ -1330,7 +1352,7 @@ const handleValidateAndVerify = (component) => {
             </Typography>
 
             <Grid container justifyContent="center" spacing={4}>
-              {/* ECU Validation */}
+              {/* HCU Validation */}
               <Grid
                 item
                 xs={12}
@@ -1366,7 +1388,6 @@ const handleValidateAndVerify = (component) => {
                   {hcuTimestamps.length === 0 && (
                     <Typography color="success.main" fontWeight="600">
                       No timestamps yet
-                        {/* Status: ✅ Valid */}
                     </Typography>
 
                   )}
@@ -1398,8 +1419,8 @@ const handleValidateAndVerify = (component) => {
                 </Box>
               </Grid>
 
-              {/* HCU Validation */}
-              <Grid
+              {/* ECU Validation */}
+              {/* <Grid
                 item
                 xs={12}
                 sm={6}
@@ -1434,7 +1455,6 @@ const handleValidateAndVerify = (component) => {
                   {ecuTimestamps.length === 0 && (
                     <Typography color="success.main" fontWeight="600">
                       No timestamps yet
-                      {/* Status: ✅ Valid */}
                     </Typography>
                   )}
 
@@ -1462,7 +1482,7 @@ const handleValidateAndVerify = (component) => {
                     </Typography>
                   )}
                 </Box>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Paper>
         </Box>

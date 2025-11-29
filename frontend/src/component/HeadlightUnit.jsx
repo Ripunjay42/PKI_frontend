@@ -11,12 +11,14 @@ import {
   ListItemText,
   Box,
   Chip,
+  Paper,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import headlight from "../assets/headlight.png";
 
 const HeadLightUnit = ({ validationStatus }) => {
@@ -45,53 +47,84 @@ const HeadLightUnit = ({ validationStatus }) => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 2, sm: 4 } }}>
-      <Typography
-        variant={isSmall ? "h6" : "h5"}
-        fontWeight={600}
-        mb={2}
-        color="primary"
-        textAlign="center"
-      >
-        {HUdata.title}
-      </Typography>
+    <Container maxWidth="md" sx={{ py: { xs: 1, sm: 2 }, overflow: 'visible' }}>
+      {/* Title with Icon */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
+        <LightbulbIcon sx={{ color: '#1976d2', fontSize: 32 }} />
+        <Typography
+          variant={isSmall ? "h6" : "h5"}
+          fontWeight={700}
+          color="#1565c0"
+          textAlign="center"
+        >
+          {HUdata.title}
+        </Typography>
+      </Box>
 
-      {/*  Certificate Status */}
+      {/* Certificate Status */}
       <Box textAlign="center" mb={3}>
         {validationStatus === true && (
           <Chip
-            icon={<CheckCircleIcon color="success" />}
+            icon={<CheckCircleIcon />}
             label="Certificate Valid"
             color="success"
-            sx={{ fontSize: { xs: "0.7rem", sm: "0.85rem" } }}
+            sx={{ 
+              fontSize: { xs: "0.75rem", sm: "0.9rem" },
+              fontWeight: 600,
+              py: 2,
+              px: 1,
+            }}
           />
         )}
         {validationStatus === false && (
           <Chip
-            icon={<CancelIcon color="error" />}
+            icon={<CancelIcon />}
             label="Certificate Invalid"
             color="error"
-            sx={{ fontSize: { xs: "0.7rem", sm: "0.85rem" } }}
+            sx={{ 
+              fontSize: { xs: "0.75rem", sm: "0.9rem" },
+              fontWeight: 600,
+              py: 2,
+              px: 1,
+            }}
           />
         )}
       </Box>
 
-      {/*  Functionality Accordion */}
-      <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">Functionality</Typography>
+      {/* Functionality Accordion */}
+      <Accordion
+        sx={{
+          borderRadius: '12px !important',
+          overflow: 'hidden',
+          '&:before': { display: 'none' },
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          mb: 2,
+        }}
+      >
+        <AccordionSummary 
+          expandIcon={<ExpandMoreIcon />}
+          sx={{
+            bgcolor: '#fff',
+            '&:hover': { bgcolor: '#f5f5f5' },
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: { xs: "1rem", md: "1.1rem" } }}>
+            Functionality
+          </Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <Divider sx={{ mb: 1 }} />
+        <AccordionDetails sx={{ bgcolor: '#fafafa' }}>
           <List dense>
             {HUdata.function.map((item, index) => (
-              <ListItem key={index} disablePadding sx={{ mb: 1 }}>
+              <ListItem key={index} disablePadding sx={{ py: 0.5 }}>
                 <ListItemText
-                  primaryTypographyProps={{
-                    fontSize: { xs: "0.9rem", sm: "1rem" },
-                    sx: { lineHeight: 1.5 },
-                  }}
                   primary={`• ${item}`}
+                  sx={{ 
+                    '& .MuiTypography-root': { 
+                      color: '#555',
+                      fontSize: { xs: "0.9rem", sm: "0.95rem" },
+                      lineHeight: 1.6,
+                    } 
+                  }}
                 />
               </ListItem>
             ))}
@@ -100,26 +133,44 @@ const HeadLightUnit = ({ validationStatus }) => {
       </Accordion>
 
       {/* Specification Accordion */}
-      <Accordion sx={{ mt: 2 }}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography variant="h6">Specification</Typography>
+      <Accordion
+        sx={{
+          borderRadius: '12px !important',
+          overflow: 'hidden',
+          '&:before': { display: 'none' },
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          mb: 2,
+        }}
+      >
+        <AccordionSummary 
+          expandIcon={<ExpandMoreIcon />}
+          sx={{
+            bgcolor: '#fff',
+            '&:hover': { bgcolor: '#f5f5f5' },
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: { xs: "1rem", md: "1.1rem" } }}>
+            Specification
+          </Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <Divider sx={{ mb: 1 }} />
+        <AccordionDetails sx={{ bgcolor: '#fafafa' }}>
           {Object.entries(HUdata.Spec).map(([category, items]) => (
             <Box key={category} sx={{ mb: 2 }}>
-              <Typography fontWeight={700} gutterBottom>
+              <Typography fontWeight={700} color="#1976d2" gutterBottom>
                 {category}
               </Typography>
               <List dense>
                 {items.map((item, idx) => (
-                  <ListItem key={idx} disablePadding sx={{ mb: 0.5 }}>
+                  <ListItem key={idx} disablePadding sx={{ py: 0.3 }}>
                     <ListItemText
-                      primaryTypographyProps={{
-                        fontSize: { xs: "0.85rem", sm: "1rem" },
-                        sx: { lineHeight: 1.5 },
-                      }}
                       primary={`• ${item}`}
+                      sx={{ 
+                        '& .MuiTypography-root': { 
+                          color: '#555',
+                          fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                          lineHeight: 1.5,
+                        } 
+                      }}
                     />
                   </ListItem>
                 ))}
@@ -129,14 +180,18 @@ const HeadLightUnit = ({ validationStatus }) => {
         </AccordionDetails>
       </Accordion>
 
-      {/*  Image Display */}
-      <Box
+      {/* Image Display */}
+      <Paper
+        elevation={2}
         sx={{
           width: "100%",
-          maxWidth: 400,
+          maxWidth: 350,
           mx: "auto",
-          mt: 4,
+          mt: 3,
+          p: 2,
+          borderRadius: 3,
           textAlign: "center",
+          bgcolor: '#fff',
         }}
       >
         <img
@@ -144,12 +199,12 @@ const HeadLightUnit = ({ validationStatus }) => {
           alt="headlight"
           style={{
             width: "100%",
-            maxHeight: "400px",
+            maxHeight: "300px",
             objectFit: "contain",
             borderRadius: 12,
           }}
         />
-      </Box>
+      </Paper>
     </Container>
   );
 };
