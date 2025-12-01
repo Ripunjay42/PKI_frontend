@@ -121,6 +121,10 @@ const InVehicleServer = ({
   // Timeout refs to clear on response
   const hcuTimeoutRef = useRef(null);
   const ecuTimeoutRef = useRef(null);
+  
+  // Refs to track if validation is pending (to prevent duplicate processing)
+  const isHcuPendingRef = useRef(false);
+  const isEcuPendingRef = useRef(false);
 
   // Handle MQTT validation response
   const handleValidationResponse = useCallback((response) => {
@@ -133,6 +137,13 @@ const InVehicleServer = ({
     console.log("Device:", deviceName, "IsValid:", isValid, "Raw Verify:", Verify);
 
     if (deviceName === "Engine Control Unit") {
+      // Only process if validation is pending
+      if (!isEcuPendingRef.current) {
+        console.log("ECU validation not pending, ignoring duplicate response");
+        return;
+      }
+      isEcuPendingRef.current = false;
+      
       // Clear timeout if response received
       if (ecuTimeoutRef.current) {
         clearTimeout(ecuTimeoutRef.current);
@@ -148,6 +159,13 @@ const InVehicleServer = ({
     }
 
     if (deviceName === "Headlight Control Unit" || deviceName === "Light Control Unit" || deviceName === "LCU") {
+      // Only process if validation is pending
+      if (!isHcuPendingRef.current) {
+        console.log("HCU/LCU validation not pending, ignoring duplicate response");
+        return;
+      }
+      isHcuPendingRef.current = false;
+      
       // Clear timeout if response received
       if (hcuTimeoutRef.current) {
         clearTimeout(hcuTimeoutRef.current);
@@ -229,6 +247,7 @@ const InVehicleServer = ({
   // Validation Handlers
   const handleValidateHCU = () => {
     setIsHcuValidating(true);
+    isHcuPendingRef.current = true; // Mark as pending
     validateHCU();
     setHcuValidationResult(null);
     
@@ -240,12 +259,14 @@ const InVehicleServer = ({
     // Timeout to stop loading after 10 seconds if no response
     hcuTimeoutRef.current = setTimeout(() => {
       setIsHcuValidating(false);
+      isHcuPendingRef.current = false; // Clear pending on timeout
       hcuTimeoutRef.current = null;
     }, 10000);
   };
 
   const handleValidateECU = () => {
     setIsEcuValidating(true);
+    isEcuPendingRef.current = true; // Mark as pending
     validateECU();
     setEcuValidationResult(null);
     
@@ -257,6 +278,7 @@ const InVehicleServer = ({
     // Timeout to stop loading after 10 seconds if no response
     ecuTimeoutRef.current = setTimeout(() => {
       setIsEcuValidating(false);
+      isEcuPendingRef.current = false; // Clear pending on timeout
       ecuTimeoutRef.current = null;
     }, 10000);
   };
