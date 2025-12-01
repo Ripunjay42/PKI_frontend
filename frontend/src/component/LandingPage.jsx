@@ -19,7 +19,7 @@ const LandingPage = ({ onModeSelect }) => {
 
       {/* Main Content */}
       <main className="flex-1 px-8 lg:px-16 xl:px-24 py-4 mt-10">
-        <div className="flex flex-col gap-8 max-w-7xl mx-auto">
+        <div className="flex flex-col gap-8 max-w-[1500px] mx-auto">
           {/* Top Row - Image and Cards */}
           <div className="flex flex-col lg:flex-row gap-16 items-center justify-center">
             
@@ -30,7 +30,7 @@ const LandingPage = ({ onModeSelect }) => {
                 <img
                   src={reepImage}
                   alt="PKI Automotive System"
-                  className="w-full max-w-full h-auto rounded-2xl"
+                  className="w-7xl h-auto rounded-2xl"
                 />
               </div>
             </div>
