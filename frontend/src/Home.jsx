@@ -81,7 +81,6 @@ const Home = ({setSelectedCategory }) => {
   return (
     <Box
       sx={{
-        background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%)",
         width: "100%",
         minHeight: "100vh",
         maxWidth: "92vw",

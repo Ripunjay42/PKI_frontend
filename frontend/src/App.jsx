@@ -6,19 +6,18 @@ import {
   Typography,
   Button,
   Grid,
-  Container,
-  Stack,
   Paper,
   Tooltip,
 } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import cdac_logo1 from './assets/cdac_logo1.png';
-import cca_meity from './assets/cca_meity.png';
 import tvs_logo from './assets/tvs_logo.png';
 import sunboard2 from './assets/reepl3.png';
 import emblem1 from './assets/emblem1.png';
 import logo_cca from './assets/logo_cca.png';
 import './App.css';
-import styled from 'styled-components';
 import Home from './Home';
 import InVehicleServer from './component/InVehicleServerNew';
 import InstrumentCluster from './component/InstrumentCluster';
@@ -27,68 +26,6 @@ import ElectronicThrottleBody from './component/ElectronicThrottleBody';
 import EngineControlUnit from './component/EngineControlUnit';
 import LandingPage from './component/LandingPage';
 import LiveDemo from './realtimeDemo/LiveDemo';
-
-const StyledWrapper = styled.div`
-  button {
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    outline-offset: 4px;
-    user-select: none;
-    touch-action: manipulation;
-  }
-
-  .shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: hsl(0deg 0% 0% / 0.25);
-    transform: translateY(2px);
-  }
-  .edge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: linear-gradient(
-      to left,
-      hsl(340deg 100% 16%) 0%,
-      hsl(340deg 100% 32%) 8%,
-      hsl(340deg 100% 32%) 92%,
-      hsl(340deg 100% 16%) 100%
-    );
-  }
-  .front {
-    display: block;
-    position: relative;
-    padding: 12px 27px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    color: white;
-    background: hsl(345deg 100% 47%);
-    transform: translateY(-4px);
-  }
-  button:hover .front {
-    transform: translateY(-6px);
-  }
-  button:active .front {
-    transform: translateY(-2px);
-  }
-  button:focus:not(:focus-visible) {
-    outline: none;
-  }
-
-  button.active .front {
-    background: green !important;
-  }
-`;
 
 function App() {
     const [validationStatus, setValidationStatus] = useState({});
@@ -237,64 +174,90 @@ function App() {
         </Typography>
       </Grid>
 
-      {/* Right Section (CDAC Logo) */}
+      {/* Right Section (Buttons + CDAC Logo) */}
       <Grid item xs={12} sm={4}>
-        <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }}>
+        <Box 
+          display="flex" 
+          justifyContent={{ xs: 'center', sm: 'flex-end' }}
+          alignItems="center"
+          gap={1}
+        >
+          <Button
+            onClick={() => handleSectionClick('home')}
+            startIcon={<HomeIcon />}
+            sx={{
+              bgcolor: selectedCategory === 'home' ? '#1976d2' : '#fff',
+              color: selectedCategory === 'home' ? '#fff' : '#1a365d',
+              fontWeight: 600,
+              fontSize: { xs: '0.7rem', sm: '0.8rem' },
+              px: { xs: 1, sm: 1.5 },
+              py: 0.8,
+              borderRadius: 2,
+              textTransform: 'none',
+              border: '2px solid #1976d2',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              '&:hover': {
+                bgcolor: selectedCategory === 'home' ? '#1565c0' : '#e3f2fd',
+              },
+              transition: 'all 0.2s ease',
+            }}
+          >
+            Home
+          </Button>
+          <Button
+            onClick={() => handleSectionClick('components')}
+            startIcon={<SettingsIcon />}
+            sx={{
+              bgcolor: selectedCategory === 'components' ? '#1976d2' : '#fff',
+              color: selectedCategory === 'components' ? '#fff' : '#1a365d',
+              fontWeight: 600,
+              fontSize: { xs: '0.7rem', sm: '0.8rem' },
+              px: { xs: 1, sm: 1.5 },
+              py: 0.8,
+              borderRadius: 2,
+              textTransform: 'none',
+              border: '2px solid #1976d2',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              '&:hover': {
+                bgcolor: selectedCategory === 'components' ? '#1565c0' : '#e3f2fd',
+              },
+              transition: 'all 0.2s ease',
+            }}
+          >
+            Components
+          </Button>
+          <Button
+            onClick={handleBackToLanding}
+            startIcon={<ExitToAppIcon />}
+            sx={{
+              bgcolor: '#fff',
+              color: '#d32f2f',
+              fontWeight: 600,
+              fontSize: { xs: '0.7rem', sm: '0.8rem' },
+              px: { xs: 1, sm: 1.5 },
+              py: 0.8,
+              borderRadius: 2,
+              textTransform: 'none',
+              border: '2px solid #d32f2f',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              '&:hover': {
+                bgcolor: '#ffebee',
+              },
+              transition: 'all 0.2s ease',
+            }}
+          >
+            Exit
+          </Button>
           <img
             src={cdac_logo1}
             alt="CDAC logo"
-            style={{ width: 'auto', maxHeight: '70px', maxWidth: '200px' }}
+            style={{ width: 'auto', maxHeight: '70px', maxWidth: '200px', marginLeft: '8px' }}
           />
         </Box>
       </Grid>
     </Grid>
   </Toolbar>
 </AppBar>
-
-
-
-      {/* Logo Header */}
-<Container maxWidth="xl" sx={{ px: { xs: 3, sm: 6, marginTop: 10 }, py: 2 }}>
-    {/* Navigation Buttons */}
-    <Box
-      width="100%"
-      display="flex"
-      justifyContent="center"
-    >
-      <StyledWrapper>
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={{ xs: 2, sm: 6, md: 8 }}
-          alignItems="center"
-        >
-          <button
-            className={selectedCategory === 'home' ? 'active' : ''}
-            onClick={() => handleSectionClick('home')}
-          >
-            <span className="shadow" />
-            <span className="edge" />
-            <span className="front text">🏠 Home</span>
-          </button>
-          <button
-            className={selectedCategory === 'components' ? 'active' : ''}
-            onClick={() => handleSectionClick('components')}
-          >
-            <span className="shadow" />
-            <span className="edge" />
-            <span className="front text">⚙️ Components</span>
-          </button>
-          <button
-            onClick={handleBackToLanding}
-          >
-            <span className="shadow" />
-            <span className="edge" />
-            <span className="front text">← Exit</span>
-          </button>
-        </Stack>
-      </StyledWrapper>
-    </Box>
-</Container>
-
 
       {/* Content Switcher */}
       <Box>
