@@ -127,6 +127,16 @@ function App() {
       setValidationStatus(prev => ({ ...prev, [name]: isValid }));
     };
 
+    const handleResetValidation = () => {
+      setValidationStatus({});
+    };
+
+    const handleGoToComponents = () => {
+      setCurrentMode('static');
+      setSelectedCategory('components');
+      setSelectedComponent('In-Vehicle Server');
+    };
+
   // Show landing page if no mode is selected
   if (currentMode === null) {
     return <LandingPage onModeSelect={handleModeSelect} />;
@@ -135,7 +145,7 @@ function App() {
   // Show Live Demo for realtime mode
   if (currentMode === 'realtime') {
     const isHcuValidated = validationStatus['Headlight Unit'] === true;
-    return <LiveDemo onBack={handleBackToLanding} isValidated={isHcuValidated} />;
+    return <LiveDemo onBack={handleBackToLanding} isValidated={isHcuValidated} onGoToComponents={handleGoToComponents} />;
   }
 
   const handleGoToLiveDemo = () => {
@@ -146,6 +156,7 @@ function App() {
     'In-Vehicle Server': <InVehicleServer 
       onValidationResult={handleValidationUpdate} 
       onGoToLiveDemo={handleGoToLiveDemo}
+      onResetValidation={handleResetValidation}
       ecuTimestamps={ecuTimestamps}
       setEcuTimestamps={setEcuTimestamps}
       hcuTimestamps={hcuTimestamps}

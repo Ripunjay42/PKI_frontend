@@ -6,7 +6,7 @@ import VehicleIndicators from './VehicleIndicators';
 import Car3DView from './Car3DView';
 import VideoStream from './VideoStream';
 
-const LiveDemo = ({ onBack, isValidated = false }) => {
+const LiveDemo = ({ onBack, isValidated = false, onGoToComponents }) => {
   // const [isValidated, setIsValidated] = useState(propValidated);
   const [time, setTime] = useState(new Date());
   const [speed, setSpeed] = useState(0);
@@ -115,13 +115,20 @@ const LiveDemo = ({ onBack, isValidated = false }) => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-2 sm:p-4">
       {/* Back Button */}
-      <div className="absolute top-4 left-4 z-50">
+      <div className="absolute top-4 left-4 z-50 flex gap-2">
         <button
           onClick={onBack}
-          className="px-4 py-2 bg-black hover:bg-gray-600 text-white rounded-lg flex items-center gap-2"
+          className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg flex items-center gap-2"
         >
           <span>←</span>
           <span>Exit</span>
+        </button>
+        <button
+          onClick={onGoToComponents}
+          className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg flex items-center gap-2 transition-colors"
+        >
+          <span>←</span>
+          <span>Static Demo</span>
         </button>
       </div>
 

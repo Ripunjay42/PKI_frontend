@@ -5,7 +5,7 @@ import {
   Grid,
   Container,
 } from "@mui/material";
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import './Mqttcontent.css';
 
@@ -94,6 +94,7 @@ const getCertificateData = () => {
 const InVehicleServer = ({ 
   onValidationResult, 
   onGoToLiveDemo,
+  onResetValidation,
   ecuTimestamps,
   setEcuTimestamps,
   hcuTimestamps,
@@ -116,13 +117,27 @@ const InVehicleServer = ({
   // Loading states for validation
   const [isHcuValidating, setIsHcuValidating] = useState(false);
   const [isEcuValidating, setIsEcuValidating] = useState(false);
+  
+  // Timeout refs to clear on response
+  const hcuTimeoutRef = useRef(null);
+  const ecuTimeoutRef = useRef(null);
 
   // Handle MQTT validation response
   const handleValidationResponse = useCallback((response) => {
+    console.log("Received validation response:", response);
+    
     const { deviceName, Verify } = response;
-    const isValid = !!Verify;
+    // Handle different formats: Verify could be boolean, string "true"/"false", or 0/1
+    const isValid = Verify === true || Verify === "true" || Verify === 1 || Verify === "1";
+    
+    console.log("Device:", deviceName, "IsValid:", isValid, "Raw Verify:", Verify);
 
     if (deviceName === "Engine Control Unit") {
+      // Clear timeout if response received
+      if (ecuTimeoutRef.current) {
+        clearTimeout(ecuTimeoutRef.current);
+        ecuTimeoutRef.current = null;
+      }
       setIsEcuValidating(false);
       setEcuValidationResult(isValid);
       setEcuTimestamps(prev => [...prev, {
@@ -132,7 +147,12 @@ const InVehicleServer = ({
       onValidationResult?.("Engine Control Unit", isValid);
     }
 
-    if (deviceName === "Headlight Control Unit") {
+    if (deviceName === "Headlight Control Unit" || deviceName === "Light Control Unit" || deviceName === "LCU") {
+      // Clear timeout if response received
+      if (hcuTimeoutRef.current) {
+        clearTimeout(hcuTimeoutRef.current);
+        hcuTimeoutRef.current = null;
+      }
       setIsHcuValidating(false);
       setHcuValidationResult(isValid);
       setHcuTimestamps(prev => [...prev, {
@@ -212,10 +232,16 @@ const InVehicleServer = ({
     validateHCU();
     setHcuValidationResult(null);
     
+    // Clear any existing timeout
+    if (hcuTimeoutRef.current) {
+      clearTimeout(hcuTimeoutRef.current);
+    }
+    
     // Timeout to stop loading after 10 seconds if no response
-    setTimeout(() => {
+    hcuTimeoutRef.current = setTimeout(() => {
       setIsHcuValidating(false);
-    }, 15000);
+      hcuTimeoutRef.current = null;
+    }, 10000);
   };
 
   const handleValidateECU = () => {
@@ -223,9 +249,15 @@ const InVehicleServer = ({
     validateECU();
     setEcuValidationResult(null);
     
+    // Clear any existing timeout
+    if (ecuTimeoutRef.current) {
+      clearTimeout(ecuTimeoutRef.current);
+    }
+    
     // Timeout to stop loading after 10 seconds if no response
-    setTimeout(() => {
+    ecuTimeoutRef.current = setTimeout(() => {
       setIsEcuValidating(false);
+      ecuTimeoutRef.current = null;
     }, 10000);
   };
 
@@ -234,6 +266,7 @@ const InVehicleServer = ({
     setHcuTimestamps([]);
     setHcuValidationResult(null);
     setRevokedList({ ECU: false, LCU: false });
+    onResetValidation?.();
     resetPKI();
   };
 
@@ -241,6 +274,7 @@ const InVehicleServer = ({
     setEcuTimestamps([]);
     setEcuValidationResult(null);
     setRevokedList({ ECU: false, LCU: false });
+    onResetValidation?.();
     resetPKI();
   };
 

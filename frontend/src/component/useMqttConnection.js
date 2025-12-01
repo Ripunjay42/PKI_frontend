@@ -4,16 +4,19 @@ import mqtt from 'mqtt';
 // Singleton MQTT client to persist connection across component remounts
 let globalMqttClient = null;
 let globalIsConnected = false;
+let globalValidationCallback = null; // Global callback ref
 
 const useMqttConnection = (onValidationResponse) => {
   const [client, setClient] = useState(globalMqttClient);
   const [isConnected, setIsConnected] = useState(globalIsConnected);
   const [receivedMessages, setReceivedMessages] = useState([]);
-  const onValidationResponseRef = useRef(onValidationResponse);
 
-  // Keep the callback ref updated
+  // Keep the global callback updated
   useEffect(() => {
-    onValidationResponseRef.current = onValidationResponse;
+    globalValidationCallback = onValidationResponse;
+    return () => {
+      // Don't clear on unmount to keep callback available
+    };
   }, [onValidationResponse]);
 
   const publishMessage = useCallback((topic, msg = '') => {
@@ -72,10 +75,17 @@ const useMqttConnection = (onValidationResponse) => {
           console.log(`Published to "PKI/RS/HLU_STATUS" → "true"`);
         }
 
-        if (topic === "PKI/WEB" && onValidationResponseRef.current) {
+        if (topic === "PKI/WEB") {
           try {
             const response = JSON.parse(message.toString());
-            onValidationResponseRef.current(response);
+            console.log("Parsed PKI/WEB response:", response);
+            console.log("Callback exists:", !!globalValidationCallback);
+            if (globalValidationCallback) {
+              globalValidationCallback(response);
+              console.log("Callback invoked successfully");
+            } else {
+              console.warn("No validation response callback set");
+            }
           } catch (err) {
             console.error("Failed to parse PKI/WEB message", err);
           }
