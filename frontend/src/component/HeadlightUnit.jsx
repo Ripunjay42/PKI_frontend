@@ -26,7 +26,7 @@ const HeadLightUnit = ({ validationStatus }) => {
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const HUdata = {
-    title: "Headlight Unit",
+    title: "Light Unit",
     function: [
       "Manages LED headlights based on the revocation status verified via IVS (in-vehicle-server).",
       "Communicates with the IVS (in-vehicle-server) via CAN.",

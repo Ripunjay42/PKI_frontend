@@ -18,8 +18,8 @@ const LandingPage = ({ onModeSelect }) => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 px-4 py-4 mt-10">
-        <div className="flex flex-col gap-8">
+      <main className="flex-1 px-8 lg:px-16 xl:px-24 py-4 mt-10">
+        <div className="flex flex-col gap-8 max-w-7xl mx-auto">
           {/* Top Row - Image and Cards */}
           <div className="flex flex-col lg:flex-row gap-16 items-center justify-center">
             
@@ -30,18 +30,18 @@ const LandingPage = ({ onModeSelect }) => {
                 <img
                   src={reepImage}
                   alt="PKI Automotive System"
-                  className="w-full max-w-7xl h-auto rounded-2xl"
+                  className="w-full max-w-full h-auto rounded-2xl"
                 />
               </div>
             </div>
 
             {/* Right Side - Mode Selection */}
-            <div className="flex flex-row lg:flex-col items-center justify-center  gap-4">
+            <div className="flex flex-row lg:flex-col items-center justify-center gap-6">
 
               {/* Static Mode Card */}
               <div
                 onClick={() => onModeSelect("static")}
-                className="w-full max-w-sm p-6 rounded-2xl cursor-pointer bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg"
+                className="w-full max-w-md p-6 rounded-2xl cursor-pointer bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
@@ -68,7 +68,7 @@ const LandingPage = ({ onModeSelect }) => {
               {/* Real-time Mode Card */}
               <div 
                 onClick={() => onModeSelect("realtime")}
-                className="w-full max-w-sm p-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg relative overflow-hidden cursor-pointer"
+                className="w-full max-w-md p-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg relative overflow-hidden cursor-pointer"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">

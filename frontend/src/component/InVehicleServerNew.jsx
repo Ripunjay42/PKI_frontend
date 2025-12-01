@@ -62,7 +62,7 @@ const getCertificateData = () => {
   return {
     HCU: {
       id: 1002,
-      deviceName: "Headlight Control Unit",
+      deviceName: "Light Control Unit",
       Verify: true,
       certName: "emudhra_dev_crt.cer",
       rootCA: "eMudhra Ltd",
@@ -183,8 +183,8 @@ const InVehicleServer = ({
   const handleAddToCRL = (components) => {
     components.forEach(comp => {
       setRevokedList(prev => ({ ...prev, [comp]: true }));
-      if (comp === "HCU") {
-        addHCUtoCRL();
+      if (comp === "LCU") {
+        addHCUtoCRL(); // Uses HCU MQTT topic for LCU
         setHcuValidationResult(null);
       }
       if (comp === "ECU") {
@@ -196,8 +196,8 @@ const InVehicleServer = ({
 
   const handleRemoveFromCRL = (component) => {
     setRevokedList(prev => ({ ...prev, [component]: false }));
-    if (component === "HCU") {
-      revokeHCUfromCRL();
+    if (component === "LCU") {
+      revokeHCUfromCRL(); // Uses HCU MQTT topic for LCU
       setHcuValidationResult(null);
     }
     if (component === "ECU") {
@@ -233,14 +233,14 @@ const InVehicleServer = ({
   const handleResetHCU = () => {
     setHcuTimestamps([]);
     setHcuValidationResult(null);
-    setRevokedList({ ECU: false, HCU: false });
+    setRevokedList({ ECU: false, LCU: false });
     resetPKI();
   };
 
   const handleResetECU = () => {
     setEcuTimestamps([]);
     setEcuValidationResult(null);
-    setRevokedList({ ECU: false, HCU: false });
+    setRevokedList({ ECU: false, LCU: false });
     resetPKI();
   };
 
@@ -377,7 +377,7 @@ const InVehicleServer = ({
                 py: 1.2,
               }}
             >
-              HeadLight Unit Certificate
+              Light Control Unit Certificate
             </Button>
           </Grid>
         </Grid>
@@ -396,7 +396,7 @@ const InVehicleServer = ({
       {showCertificateHcu && (
         <CertificatePreview
           device={certData.HCU}
-          title="HeadLight Unit certificate"
+          title="Light Control Unit certificate"
           onClose={() => setShowCertificateHcu(false)}
         />
       )}

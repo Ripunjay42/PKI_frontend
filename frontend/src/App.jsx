@@ -104,7 +104,7 @@ function App() {
     // Lifted state for persistence across navigation
     const [ecuTimestamps, setEcuTimestamps] = useState([]);
     const [hcuTimestamps, setHcuTimestamps] = useState([]);
-    const [revokedList, setRevokedList] = useState({ ECU: false, HCU: false });
+    const [revokedList, setRevokedList] = useState({ ECU: false, LCU: false });
     const [ecuValidationResult, setEcuValidationResult] = useState(null);
     const [hcuValidationResult, setHcuValidationResult] = useState(null);
 

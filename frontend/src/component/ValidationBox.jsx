@@ -70,7 +70,7 @@ const ValidationBox = ({
             }}
           >
             <Typography variant="subtitle1" fontWeight={700} color="primary.dark" gutterBottom>
-              HCU Certificate
+              LCU Certificate
             </Typography>
 
             <Stack direction="row" spacing={2} mt={1}>

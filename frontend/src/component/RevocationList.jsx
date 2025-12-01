@@ -19,11 +19,11 @@ import AddIcon from '@mui/icons-material/Add';
 
 const componentLabels = {
   ECU: "Engine Control Unit",
-  HCU: "Headlight Control Unit",
+  LCU: "Light Control Unit",
 };
 
 const fakeECUList = ["ECU Certificate"];
-const fakeHCUList = ["HCU Certificate"];
+const fakeLCUList = ["LCU Certificate"];
 
 const RevocationList = ({
   onClose,
@@ -67,14 +67,14 @@ const RevocationList = ({
         </IconButton>
         <Typography fontWeight="bold">Revocation List</Typography>
 
-        {!revokedList.ECU && !revokedList.HCU && (
+        {!revokedList.ECU && !revokedList.LCU && (
           <Typography color="text.secondary" mt={2}>
             List is empty
           </Typography>
         )}
 
-        {/* HCU Revoked Section */}
-        {revokedList.HCU && (
+        {/* LCU Revoked Section */}
+        {revokedList.LCU && (
           <Box
             sx={{
               border: "1px solid #ccc",
@@ -84,10 +84,10 @@ const RevocationList = ({
             }}
           >
             <Typography variant="h6" component="div">
-              Head Light unit
+              Light Control Unit
               <Button
                 variant='outlined'
-                onClick={() => handleRemoveComponent("HCU")}
+                onClick={() => handleRemoveComponent("LCU")}
                 sx={{ position: "absolute", right: 8, top: 8, fontWeight: 700 }}
               >
                 Remove
@@ -95,7 +95,7 @@ const RevocationList = ({
               </Button>
             </Typography>
             <List dense>
-              {fakeHCUList.map((item) => (
+              {fakeLCUList.map((item) => (
                 <ListItem key={item}>
                   <ListItemText primary={item} />
                 </ListItem>
@@ -151,7 +151,7 @@ const RevocationList = ({
             Select components to be added to revocation list
           </Typography>
           <Stack spacing={1} sx={{ fontWeight: 700 }}>
-            {["HCU"].map((comp) => (
+            {["LCU"].map((comp) => (
               <Box key={comp}>
                 <label>
                   <input
