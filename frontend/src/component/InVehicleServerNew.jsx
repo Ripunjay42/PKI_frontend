@@ -211,12 +211,22 @@ const InVehicleServer = ({
     setIsHcuValidating(true);
     validateHCU();
     setHcuValidationResult(null);
+    
+    // Timeout to stop loading after 10 seconds if no response
+    setTimeout(() => {
+      setIsHcuValidating(false);
+    }, 15000);
   };
 
   const handleValidateECU = () => {
     setIsEcuValidating(true);
     validateECU();
     setEcuValidationResult(null);
+    
+    // Timeout to stop loading after 10 seconds if no response
+    setTimeout(() => {
+      setIsEcuValidating(false);
+    }, 10000);
   };
 
   // Reset Handlers
