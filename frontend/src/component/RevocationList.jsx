@@ -1,29 +1,14 @@
-import { useState } from 'react';
 import {
   Box,
   Button,
   Typography,
   Stack,
   Paper,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogActions,
-  List,
-  ListItem,
-  ListItemText,
   IconButton,
+  Chip,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from '@mui/icons-material/Add';
-
-const componentLabels = {
-  ECU: "Engine Control Unit",
-  LCU: "Light Control Unit",
-};
-
-const fakeECUList = ["ECU Certificate"];
-const fakeLCUList = ["LCU Certificate"];
 
 const RevocationList = ({
   onClose,
@@ -31,151 +16,136 @@ const RevocationList = ({
   onAddToCRL,
   onRemoveFromCRL,
 }) => {
-  const [showAddDialog, setShowAddDialog] = useState(false);
-  const [selectedComponents, setSelectedComponents] = useState([]);
-
-  const toggleComponentSelection = (component) => {
-    setSelectedComponents((prev) =>
-      prev.includes(component)
-        ? prev.filter((c) => c !== component)
-        : [...prev, component]
-    );
+  const handleAddLCU = () => {
+    if (revokedList?.LCU) return;
+    onAddToCRL(["LCU"]);
+    alert("LCU added to CRL");
   };
 
-  const handleAddComponents = () => {
-    if (selectedComponents.length === 0) return;
-    onAddToCRL(selectedComponents);
-    alert(`${selectedComponents.join(" & ")} added to CRL`);
-    setSelectedComponents([]);
-    setShowAddDialog(false);
-  };
-
-  const handleRemoveComponent = (component) => {
-    onRemoveFromCRL(component);
-    alert(`${component} removed from CRL`);
+  const handleRemoveLCU = () => {
+    if (!revokedList?.LCU) return;
+    onRemoveFromCRL("LCU");
+    alert("LCU removed from CRL");
   };
 
   return (
     <Box mt={3}>
-      <Paper sx={{ p: 2, position: 'relative' }}>
+      <Paper 
+        elevation={1}
+        sx={{ 
+          p: 2, 
+          position: 'relative',
+          borderRadius: 3,
+          background: 'linear-gradient(145deg, #ffffff 0%, #f5f5f5 100%)',
+          // border: '1px solid #e0e0e0',
+        }}
+      >
         <IconButton
-          aria-label="crl-dialog-title"
+          aria-label="close"
           onClick={onClose}
-          sx={{ position: "absolute", top: 8, right: 8 }}
+          sx={{ 
+            position: "absolute", 
+            top: 12, 
+            right: 12,
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            }
+          }}
         >
           <CloseIcon />
         </IconButton>
-        <Typography fontWeight="bold">Revocation List</Typography>
 
-        {!revokedList.ECU && !revokedList.LCU && (
-          <Typography color="text.secondary" mt={2}>
-            List is empty
-          </Typography>
-        )}
+        <Typography 
+          variant="h6" 
+          fontWeight={700} 
+          color="primary.dark"
+          gutterBottom
+          sx={{ mb: 3 }}
+        >
+          Revoke LCU Certificate
+        </Typography>
 
-        {/* LCU Revoked Section */}
-        {revokedList.LCU && (
-          <Box
-            sx={{
-              border: "1px solid #ccc",
-              mt: 2,
-              p: 1,
-              position: "relative",
-            }}
-          >
-            <Typography variant="h6" component="div">
-              Light Control Unit
+        {/* LCU Status and Actions */}
+        <Box
+          sx={{
+            borderRadius: 2,
+          }}
+        >
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'flex-start', sm: 'center' }} justifyContent="space-between" spacing={2}>
+            <Box>
+              <Typography variant="subtitle1" fontWeight={700} color="primary.dark" sx={{ whiteSpace: 'nowrap' }}>
+                Light Control Unit
+              </Typography>
+              <Stack direction="row" alignItems="center" spacing={1} mt={0.5}>
+                <Typography variant="body2" color="text.secondary">Status:</Typography>
+                <Chip 
+                  size="small"
+                  label={revokedList?.LCU ? 'Revoked' : 'Active'}
+                  sx={{
+                    fontWeight: 600,
+                    color: revokedList?.LCU ? '#c62828' : '#2e7d32',
+                    backgroundColor: revokedList?.LCU ? '#ffebee' : '#e8f5e9',
+                    border: `1px solid ${revokedList?.LCU ? '#ffcdd2' : '#c8e6c9'}`,
+                  }}
+                />
+              </Stack>
+            </Box>
+
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} width={{ xs: '100%', sm: 'auto' }}>
               <Button
-                variant='outlined'
-                onClick={() => handleRemoveComponent("LCU")}
-                sx={{ position: "absolute", right: 8, top: 8, fontWeight: 700 }}
+                variant="contained"
+                size="small"
+                startIcon={<AddIcon fontSize="small" />}
+                onClick={handleAddLCU}
+                disabled={!!revokedList?.LCU}
+                sx={{
+                  background: 'linear-gradient(135deg, #00838F 0%, #00ACC1 100%)',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  textTransform: 'none',
+                  px: 1.5,
+                  py: 0.75,
+                  lineHeight: 1.3,
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #006872 0%, #0097a7 100%)',
+                  },
+                  '&:disabled': {
+                    background: '#e0e0e0',
+                  }
+                }}
               >
-                Remove
-                <CloseIcon fontSize="small" />
+                Add to<br />Revocation
               </Button>
-            </Typography>
-            <List dense>
-              {fakeLCUList.map((item) => (
-                <ListItem key={item}>
-                  <ListItemText primary={item} />
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        )}
-
-        {/* ECU Revoked Section */}
-        {revokedList.ECU && (
-          <Box
-            sx={{
-              border: "1px solid #ccc",
-              mt: 2,
-              p: 1,
-              position: "relative",
-            }}
-          >
-            <Typography variant="h6" component="div">
-              Engine control unit
               <Button
-                variant='outlined'
-                onClick={() => handleRemoveComponent("ECU")}
-                sx={{ position: "absolute", right: 8, top: 8, fontWeight: 700 }}
+                variant="contained"
+                size="small"
+                startIcon={<CloseIcon fontSize="small" />}
+                onClick={handleRemoveLCU}
+                disabled={!revokedList?.LCU}
+                sx={{
+                  background: 'linear-gradient(135deg, #d32f2f 0%, #f44336 100%)',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  textTransform: 'none',
+                  px: 1.5,
+                  py: 0.75,
+                  lineHeight: 1.3,
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #c62828 0%, #e53935 100%)',
+                  },
+                  '&:disabled': {
+                    background: '#e0e0e0',
+                  }
+                }}
               >
-                Remove
-                <CloseIcon fontSize="small" />
+                Remove from<br />Revocation
               </Button>
-            </Typography>
-            <List dense>
-              {fakeECUList.map((item) => (
-                <ListItem key={item}>
-                  <ListItemText primary={item} />
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        )}
-
-        {/* Add to List button */}
-        <Box mt={2} textAlign="center">
-          <Button variant="contained" onClick={() => setShowAddDialog(true)}>
-            <AddIcon /> Add to List
-          </Button>
+            </Stack>
+          </Stack>
         </Box>
       </Paper>
-
-      {/* Add to List Dialog */}
-      <Dialog open={showAddDialog} onClose={() => setShowAddDialog(false)} aria-labelledby="crl-dialog-title2">
-        <DialogTitle id="crl-dialog-title2">Add to Revocation List</DialogTitle>
-        <DialogContent>
-          <Typography variant="h6" mb={2}>
-            Select components to be added to revocation list
-          </Typography>
-          <Stack spacing={1} sx={{ fontWeight: 700 }}>
-            {["LCU"].map((comp) => (
-              <Box key={comp}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedComponents.includes(comp)}
-                    onChange={() => toggleComponentSelection(comp)}
-                    disabled={revokedList[comp]}
-                  />
-                  {" " + componentLabels[comp]}
-                  {revokedList[comp] && " (Already in list)"}
-                </label>
-              </Box>
-            ))}
-          </Stack>
-          <Stack direction="row" spacing={2} mt={3} justifyContent="flex-end">
-            <Button variant="outlined" onClick={handleAddComponents}>
-              Add
-            </Button>
-            <Button variant="outlined" color="error" onClick={() => setShowAddDialog(false)}>
-              Cancel
-            </Button>
-          </Stack>
-        </DialogContent>
-      </Dialog>
     </Box>
   );
 };

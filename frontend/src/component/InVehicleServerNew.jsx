@@ -107,9 +107,6 @@ const InVehicleServer = ({
   setHcuValidationResult,
 }) => {
   // UI State
-  const [showData, setShowData] = useState(false);
-  const [showOperation, setShowOperation] = useState(false);
-  const [showCertificateEcu, setShowCertificateEcu] = useState(false);
   const [showCertificateHcu, setShowCertificateHcu] = useState(false);
   const [showRevokeBox, setShowRevokeBox] = useState(false);
   const [showValidationBox, setShowValidationBox] = useState(false);
@@ -195,26 +192,9 @@ const InVehicleServer = ({
   // Certificate Data
   const certData = getCertificateData();
 
-  // Reset all panels
-  const resetPanels = () => {
-    setShowCertificateHcu(false);
-    setShowCertificateEcu(false);
-    setShowRevokeBox(false);
-    setShowValidationBox(false);
-  };
-
-  // Handle Connected Devices toggle
-  const handleConnectedDevicesClick = () => {
-    setShowData(prev => !prev);
-    setShowOperation(false);
-    resetPanels();
-  };
-
-  // Handle Operations toggle
-  const handleOperationsClick = () => {
-    setShowOperation(prev => !prev);
-    setShowData(false);
-    resetPanels();
+  // Toggle certificate visibility
+  const toggleCertificate = () => {
+    setShowCertificateHcu(prev => !prev);
   };
 
   // CRL Handlers
@@ -301,7 +281,7 @@ const InVehicleServer = ({
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 1, sm: 2 }, overflow: 'visible' }}>
+    <Container maxWidth="md" sx={{ py: { xs: 1, sm: 1 }, overflow: 'visible' }}>
       {/* Title */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 3 }}>
         <Typography
@@ -320,142 +300,99 @@ const InVehicleServer = ({
       <SpecificationSection data={Ivsdata.spec} />
       <TrustedRootSection data={Ivsdata.trusted} />
 
-      {/* Main Buttons */}
+      {/* Connected Device Certificate - Expandable */}
+      <Box mt={3}>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={toggleCertificate}
+          endIcon={<ArrowDropDownIcon sx={{ transform: showCertificateHcu ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }} />}
+          sx={{
+            background: 'linear-gradient(135deg, #00838F)',
+            color: '#fff',
+            fontWeight: 600,
+            fontSize: '15px',
+            borderRadius: 3,
+            boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
+            py: 1.5,
+            textTransform: 'none',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #006872 0%, #0097a7 100%)',
+              boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
+            }
+          }}
+        >
+          Light Control Unit Certificate
+        </Button>
+
+        {/* Certificate Preview - Expandable */}
+        {showCertificateHcu && (
+          <Box mt={2}>
+            <CertificatePreview
+              device={certData.HCU}
+              title="Light Control Unit certificate"
+              onClose={toggleCertificate}
+            />
+          </Box>
+        )}
+      </Box>
+
+      {/* Operations Buttons */}
       <Grid container spacing={2} justifyContent="center" mt={3}>
         <Grid item xs={12} sm={6}>
           <Button
             variant="contained"
             fullWidth
-            endIcon={<ArrowDropDownIcon />}
-            onClick={handleConnectedDevicesClick}
-            sx={{
-              background: 'linear-gradient(135deg, #6A1B9A 0%, #8E24AA 100%)',
-              color: '#fff',
-              fontWeight: 600,
-              fontSize: '15px',
-              borderRadius: 3,
-              boxShadow: '0 4px 15px rgba(106, 27, 154, 0.3)',
-              py: 1.5,
+            onClick={() => {
+              setShowRevokeBox(prev => !prev);
+              setShowValidationBox(false);
             }}
-          >
-            Connected Devices
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <Button
-            variant="contained"
-            fullWidth
-            endIcon={<ArrowDropDownIcon />}
-            onClick={handleOperationsClick}
             sx={{
-              background: 'linear-gradient(135deg, #00838F 0%, #00ACC1 100%)',
+              background: 'linear-gradient(135deg, #00838F)',
               color: '#fff',
               fontWeight: 600,
               fontSize: '15px',
               borderRadius: 3,
               boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
               py: 1.5,
+              textTransform: 'none',
+              '&:hover': {
+                background: 'linear-gradient(135deg, #006872 0%, #0097a7 100%)',
+                boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
+              }
             }}
           >
-            Operations
+            Revoke LCU Certificate
+          </Button>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => {
+              setShowValidationBox(prev => !prev);
+              setShowRevokeBox(false);
+            }}
+            sx={{
+              background: 'linear-gradient(135deg, #00838F)',
+              color: '#fff',
+              fontWeight: 600,
+              fontSize: '15px',
+              borderRadius: 3,
+              boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
+              py: 1.5,
+              textTransform: 'none',
+              '&:hover': {
+                background: 'linear-gradient(135deg, #006872 0%, #0097a7 100%)',
+                boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
+              }
+            }}
+          >
+            LCU Certificate Validation
           </Button>
         </Grid>
       </Grid>
-
-      {/* Operations Sub-buttons */}
-      {showOperation && (
-        <Grid container spacing={2} justifyContent="center" mt={2}>
-          <Grid item xs={12} sm={6}>
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={() => {
-                setShowRevokeBox(true);
-                setShowValidationBox(false);
-              }}
-              sx={{
-                background: 'linear-gradient(135deg, #9c4370 0%, #c2185b 100%)',
-                color: '#fff',
-                fontWeight: 600,
-                fontSize: '14px',
-                borderRadius: 3,
-                boxShadow: '0 3px 12px rgba(156, 67, 112, 0.3)',
-                py: 1.2,
-              }}
-            >
-              Certificate Revocation List
-            </Button>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={() => {
-                setShowValidationBox(true);
-                setShowRevokeBox(false);
-              }}
-              sx={{
-                background: 'linear-gradient(135deg, #388e3c 0%, #4caf50 100%)',
-                color: '#fff',
-                fontWeight: 600,
-                fontSize: '14px',
-                borderRadius: 3,
-                boxShadow: '0 3px 12px rgba(56, 142, 60, 0.3)',
-                py: 1.2,
-              }}
-            >
-              Validation
-            </Button>
-          </Grid>
-        </Grid>
-      )}
-
-      {/* Connected Devices Sub-buttons */}
-      {showData && (
-        <Grid container spacing={2} justifyContent="center" mt={2}>
-          <Grid item xs={12} sm={6}>
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={() => {
-                setShowCertificateHcu(true);
-                setShowCertificateEcu(false);
-              }}
-              sx={{
-                background: 'linear-gradient(135deg, #0D9276 0%, #26a69a 100%)',
-                color: '#fff',
-                fontWeight: 600,
-                fontSize: '15px',
-                borderRadius: 3,
-                boxShadow: '0 4px 15px rgba(13, 146, 118, 0.3)',
-                py: 1.2,
-              }}
-            >
-              Light Control Unit Certificate
-            </Button>
-          </Grid>
-        </Grid>
-      )}
-
-      {/* ECU Certificate Preview */}
-      {showCertificateEcu && (
-        <CertificatePreview
-          device={certData.ECU}
-          title="Engine Control Unit certificate"
-          onClose={() => setShowCertificateEcu(false)}
-        />
-      )}
-
-      {/* HCU Certificate Preview */}
-      {showCertificateHcu && (
-        <CertificatePreview
-          device={certData.HCU}
-          title="Light Control Unit certificate"
-          onClose={() => setShowCertificateHcu(false)}
-        />
-      )}
 
       {/* Revocation List */}
       {showRevokeBox && (
