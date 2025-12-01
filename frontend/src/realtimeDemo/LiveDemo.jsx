@@ -118,7 +118,7 @@ const LiveDemo = ({ onBack, isValidated = false }) => {
       <div className="absolute top-4 left-4 z-50">
         <button
           onClick={onBack}
-          className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg flex items-center gap-2 transition-colors"
+          className="px-4 py-2 bg-black hover:bg-gray-600 text-white rounded-lg flex items-center gap-2"
         >
           <span>←</span>
           <span>Exit</span>

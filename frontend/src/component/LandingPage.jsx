@@ -9,7 +9,7 @@ const LandingPage = ({ onModeSelect }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-blue-200 flex flex-col">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Header */}
       <header className="py-4 px-6 border-b border-gray-100">
         <div className="text-3xl md:text-4xl font-extrabold text-center text-gray-800">
@@ -60,7 +60,7 @@ const LandingPage = ({ onModeSelect }) => {
                   Explore PKI-based HCU certificate 
                   validation inside secure hardware devices.
                 </p>
-                <button className="w-full mt-4 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-xl">
+                <button className="w-full mt-4 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl">
                   Enter Static Demo →
                 </button>
               </div>
@@ -89,7 +89,7 @@ const LandingPage = ({ onModeSelect }) => {
                   real-time headlight and indicator status via MQTT.
                 </p>
                 <button 
-                  className="w-full mt-4 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-xl"
+                  className="w-full mt-4 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl"
                 >
                   Enter Live Demo →
                 </button>
