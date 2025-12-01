@@ -16,7 +16,7 @@ const useMqttConnection = (onValidationResponse) => {
   }, [client, isConnected]);
 
   useEffect(() => {
-    const mqttClient = mqtt.connect('wss://169.254.210.100:5173/mqtt', {
+    const mqttClient = mqtt.connect('ws://192.168.137.249:8080/mqtt', {
       clientId: 'react_mqtt_pub_' + Math.random().toString(16).slice(2, 10),
       clean: true,
       connectTimeout: 4000,
@@ -100,6 +100,11 @@ const useMqttConnection = (onValidationResponse) => {
     publishMessage('PKI/Verification/ECU', 'SENDCRT2');
   }, [publishMessage]);
 
+  // Reset operation
+  const resetPKI = useCallback(() => {
+    publishMessage('PKI/Reset', 'RESET');
+  }, [publishMessage]);
+
   return {
     client,
     isConnected,
@@ -111,6 +116,7 @@ const useMqttConnection = (onValidationResponse) => {
     revokeHCUfromCRL,
     validateHCU,
     validateECU,
+    resetPKI,
   };
 };
 

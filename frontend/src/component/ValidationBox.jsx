@@ -6,10 +6,12 @@ import {
   Paper,
   Grid,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const ValidationBox = ({
   onClose,
@@ -21,6 +23,10 @@ const ValidationBox = ({
   ecuTimestamps,
   showECU = false,
   onGoToLiveDemo,
+  isHcuValidating = false,
+  isEcuValidating = false,
+  onResetHCU,
+  onResetECU,
 }) => {
   return (
     <Box mt={2}>
@@ -72,9 +78,24 @@ const ValidationBox = ({
                 variant="outlined"
                 size="small"
                 onClick={onValidateHCU}
+                disabled={isHcuValidating}
+                sx={{ fontWeight: 600, minWidth: 100 }}
+              >
+                {isHcuValidating ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : (
+                  'Validate'
+                )}
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={onResetHCU}
+                color="secondary"
+                startIcon={<RefreshIcon />}
                 sx={{ fontWeight: 600 }}
               >
-                Validate
+                Reset
               </Button>
             </Stack>
 
@@ -109,7 +130,7 @@ const ValidationBox = ({
                   fontWeight={600}
                   fontSize="14px"
                 >
-                  Result: {hcuValidationResult ? "✅ Valid" : "❌ Invalid"}
+                  Result: {hcuValidationResult ? "Valid" : "!Invalid"}
                 </Typography>
               )}
 
@@ -157,9 +178,24 @@ const ValidationBox = ({
                   variant="outlined"
                   size="small"
                   onClick={onValidateECU}
+                  disabled={isEcuValidating}
+                  sx={{ fontWeight: 600, minWidth: 100 }}
+                >
+                  {isEcuValidating ? (
+                    <CircularProgress size={20} color="inherit" />
+                  ) : (
+                    'Validate'
+                  )}
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={onResetECU}
+                  color="secondary"
+                  startIcon={<RefreshIcon />}
                   sx={{ fontWeight: 600 }}
                 >
-                  Validate
+                  Reset
                 </Button>
               </Stack>
 

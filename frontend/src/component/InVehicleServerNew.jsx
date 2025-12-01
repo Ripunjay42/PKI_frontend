@@ -91,7 +91,20 @@ const getCertificateData = () => {
   };
 };
 
-const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
+const InVehicleServer = ({ 
+  onValidationResult, 
+  onGoToLiveDemo,
+  ecuTimestamps,
+  setEcuTimestamps,
+  hcuTimestamps,
+  setHcuTimestamps,
+  revokedList,
+  setRevokedList,
+  ecuValidationResult,
+  setEcuValidationResult,
+  hcuValidationResult,
+  setHcuValidationResult,
+}) => {
   // UI State
   const [showData, setShowData] = useState(false);
   const [showOperation, setShowOperation] = useState(false);
@@ -100,14 +113,9 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
   const [showRevokeBox, setShowRevokeBox] = useState(false);
   const [showValidationBox, setShowValidationBox] = useState(false);
 
-  // Revocation State
-  const [revokedList, setRevokedList] = useState({ ECU: false, HCU: false });
-
-  // Validation State
-  const [ecuValidationResult, setEcuValidationResult] = useState(null);
-  const [hcuValidationResult, setHcuValidationResult] = useState(null);
-  const [ecuTimestamps, setEcuTimestamps] = useState([]);
-  const [hcuTimestamps, setHcuTimestamps] = useState([]);
+  // Loading states for validation
+  const [isHcuValidating, setIsHcuValidating] = useState(false);
+  const [isEcuValidating, setIsEcuValidating] = useState(false);
 
   // Handle MQTT validation response
   const handleValidationResponse = useCallback((response) => {
@@ -115,6 +123,7 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
     const isValid = !!Verify;
 
     if (deviceName === "Engine Control Unit") {
+      setIsEcuValidating(false);
       setEcuValidationResult(isValid);
       setEcuTimestamps(prev => [...prev, {
         time: new Date().toLocaleString(),
@@ -124,6 +133,7 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
     }
 
     if (deviceName === "Headlight Control Unit") {
+      setIsHcuValidating(false);
       setHcuValidationResult(isValid);
       setHcuTimestamps(prev => [...prev, {
         time: new Date().toLocaleString(),
@@ -131,7 +141,7 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
       }]);
       onValidationResult?.("Headlight Unit", isValid);
     }
-  }, [onValidationResult]);
+  }, [onValidationResult, setEcuValidationResult, setEcuTimestamps, setHcuValidationResult, setHcuTimestamps]);
 
   // MQTT Hook
   const {
@@ -141,6 +151,7 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
     revokeHCUfromCRL,
     validateHCU,
     validateECU,
+    resetPKI,
   } = useMqttConnection(handleValidationResponse);
 
   // Certificate Data
@@ -197,13 +208,30 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
 
   // Validation Handlers
   const handleValidateHCU = () => {
+    setIsHcuValidating(true);
     validateHCU();
     setHcuValidationResult(null);
   };
 
   const handleValidateECU = () => {
+    setIsEcuValidating(true);
     validateECU();
     setEcuValidationResult(null);
+  };
+
+  // Reset Handlers
+  const handleResetHCU = () => {
+    setHcuTimestamps([]);
+    setHcuValidationResult(null);
+    setRevokedList({ ECU: false, HCU: false });
+    resetPKI();
+  };
+
+  const handleResetECU = () => {
+    setEcuTimestamps([]);
+    setEcuValidationResult(null);
+    setRevokedList({ ECU: false, HCU: false });
+    resetPKI();
   };
 
   return (
@@ -385,6 +413,10 @@ const InVehicleServer = ({ onValidationResult, onGoToLiveDemo }) => {
           ecuTimestamps={ecuTimestamps}
           showECU={false}
           onGoToLiveDemo={onGoToLiveDemo}
+          isHcuValidating={isHcuValidating}
+          isEcuValidating={isEcuValidating}
+          onResetHCU={handleResetHCU}
+          onResetECU={handleResetECU}
         />
       )}
     </Container>

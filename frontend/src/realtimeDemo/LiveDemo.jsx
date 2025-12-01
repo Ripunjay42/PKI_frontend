@@ -6,8 +6,8 @@ import VehicleIndicators from './VehicleIndicators';
 import Car3DView from './Car3DView';
 import VideoStream from './VideoStream';
 
-const LiveDemo = ({ onBack, isValidated: propValidated = false }) => {
-  const [isValidated, setIsValidated] = useState(propValidated);
+const LiveDemo = ({ onBack, isValidated = false }) => {
+  // const [isValidated, setIsValidated] = useState(propValidated);
   const [time, setTime] = useState(new Date());
   const [speed, setSpeed] = useState(0);
   const [battery, setBattery] = useState(100);
@@ -126,14 +126,14 @@ const LiveDemo = ({ onBack, isValidated: propValidated = false }) => {
       </div>
 
       {/* Test Validation Button */}
-        <div className="absolute top-4 right-4 z-50">
+        {/* <div className="absolute top-4 right-4 z-50">
           <button
             onClick={() => setIsValidated(!isValidated)}
             className="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg flex items-center gap-2 transition-colors"
           >
             <span>Test Validate</span>
           </button>
-        </div>
+        </div> */}
 
       {/* Oval Dashboard Container */}
       <div className="relative w-full max-w-[1220px] aspect-16/7.6">
@@ -157,7 +157,8 @@ const LiveDemo = ({ onBack, isValidated: propValidated = false }) => {
           {/* Vehicle Indicators */}
           <VehicleIndicators 
             leftTurnActive={leftTurnActive} 
-            rightTurnActive={rightTurnActive} 
+            rightTurnActive={rightTurnActive}
+            isValidated={isValidated}
           />
 
           {/* Main Content Area - Vertically stacked with bars */}

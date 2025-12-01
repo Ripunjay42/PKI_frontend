@@ -5,7 +5,12 @@ import {
 } from 'react-icons/tb';
 import { PiSeatbeltFill } from 'react-icons/pi';
 
-const VehicleIndicators = ({ leftTurnActive = false, rightTurnActive = false }) => {
+const VehicleIndicators = ({ leftTurnActive, rightTurnActive, isValidated = false }) => {
+  // When validated, both indicators should glow together
+  const bothActive = isValidated || (leftTurnActive && rightTurnActive);
+  const leftGlow = isValidated || leftTurnActive;
+  const rightGlow = isValidated || rightTurnActive;
+  
   return (
     <>
       {/* Left Side Indicators - Top Left Arc */}
@@ -14,7 +19,7 @@ const VehicleIndicators = ({ leftTurnActive = false, rightTurnActive = false }) 
         <div className="flex flex-col items-center" title="Left Turn Signal">
           <TbArrowBigLeftLinesFilled 
             className={`text-2xl sm:text-7xl transition-all duration-150 ${
-              leftTurnActive 
+              leftGlow 
                 ? 'text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.8)] animate-pulse' 
                 : 'text-gray-400'
             }`} 
@@ -41,7 +46,7 @@ const VehicleIndicators = ({ leftTurnActive = false, rightTurnActive = false }) 
         <div className="flex flex-col items-center" title="Right Turn Signal">
           <TbArrowBigRightLinesFilled 
             className={`text-3xl sm:text-7xl transition-all duration-150 ${
-              rightTurnActive 
+              rightGlow 
                 ? 'text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.8)] animate-pulse' 
                 : 'text-gray-400'
             }`} 

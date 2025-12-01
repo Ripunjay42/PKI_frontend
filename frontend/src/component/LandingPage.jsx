@@ -9,7 +9,7 @@ const LandingPage = ({ onModeSelect }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-blue-200 flex flex-col">
       {/* Header */}
       <header className="py-4 px-6 border-b border-gray-100">
         <div className="text-3xl md:text-4xl font-extrabold text-center text-gray-800">
@@ -26,11 +26,11 @@ const LandingPage = ({ onModeSelect }) => {
             {/* Left Side - Image */}
             <div className="flex flex-col items-center">
               {/* Image Container */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200 p-8 bg-gradient-to-br from-gray-50 to-white">
+              <div className="relative rounded-3xl overflow-hidden border-[1px] border-gray-300 shadow-sm">
                 <img
                   src={reepImage}
                   alt="PKI Automotive System"
-                  className="w-full max-w-3xl h-auto rounded-2xl"
+                  className="w-full max-w-7xl h-auto rounded-2xl"
                 />
               </div>
             </div>

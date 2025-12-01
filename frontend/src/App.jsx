@@ -101,6 +101,13 @@ function App() {
 
     /* ======================================================= */
 
+    // Lifted state for persistence across navigation
+    const [ecuTimestamps, setEcuTimestamps] = useState([]);
+    const [hcuTimestamps, setHcuTimestamps] = useState([]);
+    const [revokedList, setRevokedList] = useState({ ECU: false, HCU: false });
+    const [ecuValidationResult, setEcuValidationResult] = useState(null);
+    const [hcuValidationResult, setHcuValidationResult] = useState(null);
+
     const handleModeSelect = (mode) => {
       if (mode === 'static') {
         setCurrentMode('static');
@@ -136,7 +143,20 @@ function App() {
   };
 
   const componentMap = {
-    'In-Vehicle Server': <InVehicleServer onValidationResult={handleValidationUpdate} onGoToLiveDemo={handleGoToLiveDemo} />,
+    'In-Vehicle Server': <InVehicleServer 
+      onValidationResult={handleValidationUpdate} 
+      onGoToLiveDemo={handleGoToLiveDemo}
+      ecuTimestamps={ecuTimestamps}
+      setEcuTimestamps={setEcuTimestamps}
+      hcuTimestamps={hcuTimestamps}
+      setHcuTimestamps={setHcuTimestamps}
+      revokedList={revokedList}
+      setRevokedList={setRevokedList}
+      ecuValidationResult={ecuValidationResult}
+      setEcuValidationResult={setEcuValidationResult}
+      hcuValidationResult={hcuValidationResult}
+      setHcuValidationResult={setHcuValidationResult}
+    />,
     'Instrument Cluster': <InstrumentCluster/>,
     'Engine Control Unit': <EngineControlUnit onValidationResult={handleValidationUpdate} />,
     'Light control Unit': <HeadLightUnit onValidationResult={handleValidationUpdate} />,
