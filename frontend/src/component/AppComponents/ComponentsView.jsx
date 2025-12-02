@@ -5,7 +5,7 @@ import tvs_logo from '../../assets/tvs_logo.png';
 const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick }) => {
   const components = [
     { name: 'In-Vehicle Server', top: '53.8%', left: '72%' },
-    { name: 'Light control Unit', top: '54.4%', left: '53.3%' },
+    { name: 'Light control Unit', top: '54.5%', left: '53.3%' },
     { name: 'Instrument Cluster', top: '37%', left: '34%' },
     { name: 'Indicators', top: '53%', left: '15.8%' },
   ];
@@ -107,21 +107,21 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
                 top: comp.top,
                 left: comp.left,
                 transform: 'translate(-50%, -50%)',
-                backgroundColor: selectedComponent === comp.name ? '#CD7F32' : '#F88379',
-                color: '#fff',
-                fontWeight: 700,
+                backgroundColor: selectedComponent === comp.name ? '#FFD1DF' : '#FFD1DF',
+                color: '#000',
+                fontWeight: 500,
                 fontSize: {
                   xs: '0.65rem',
                   sm: '0.75rem',
                   md: '0.85rem',
-                  lg: '0.95rem',
+                  lg: '0.90rem',
                 },
-                border: selectedComponent === comp.name ? '1px solid rgba(255, 140, 60, 1)' : '1px solid rgba(255, 140, 60, 1)',
+                // border: selectedComponent === comp.name ? '1px solid rgba(255, 140, 60, 1)' : '1px solid rgba(255, 140, 60, 1)',
                 borderRadius: '8px',
                 px: { xs: 0.5, sm: 1, md: 3 },
                 py: { xs: 0.5, sm: 1, md: 2 },
-                minWidth: { xs: '90px', sm: '110px', md: '120px' },
-                maxWidth: { xs: '100px', sm: '120px', md: '140px' },
+                minWidth: { xs: '90px', sm: '110px', md: '150px' },
+                maxWidth: { xs: '100px', sm: '120px', md: '150px' },
                 textAlign: 'center',
                 whiteSpace: 'normal',
                 lineHeight: 1.2,
@@ -131,8 +131,8 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
                   ? '0 6px 20px rgba(25, 118, 210, 0.5)' 
                   : '0 4px 15px rgba(255, 140, 60, 0.4)',
                 '&:hover': {
-                  backgroundColor: selectedComponent === comp.name ? '#CD7F32' : '#CD7F32',
-                  boxShadow: '0 6px 20px rgba(255, 140, 60, 0.6)',
+                  backgroundColor: selectedComponent === comp.name ? '#FFD1DF' : '#FFD1DF',
+                  // boxShadow: '0 6px 20px rgba(255, 140, 60, 0.6)',
                 },
               }}
             >
