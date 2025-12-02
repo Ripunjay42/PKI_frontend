@@ -77,7 +77,7 @@ const RevocationList = ({
                 Light Control Unit
               </Typography>
               <Stack direction="row" alignItems="center" spacing={1} mt={0.5}>
-                <Typography variant="body2" color="text.secondary">Status:</Typography>
+                {/* <Typography variant="body2" color="text.secondary">Status:</Typography>
                 <Chip 
                   size="small"
                   label={revokedList?.LCU ? 'Revoked' : 'Active'}
@@ -87,7 +87,7 @@ const RevocationList = ({
                     backgroundColor: revokedList?.LCU ? '#ffebee' : '#e8f5e9',
                     border: `1px solid ${revokedList?.LCU ? '#ffcdd2' : '#c8e6c9'}`,
                   }}
-                />
+                /> */}
               </Stack>
             </Box>
 
