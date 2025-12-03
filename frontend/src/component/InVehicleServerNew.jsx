@@ -108,8 +108,6 @@ const InVehicleServer = ({
 }) => {
   // UI State
   const [showCertificateHcu, setShowCertificateHcu] = useState(false);
-  const [showRevokeBox, setShowRevokeBox] = useState(false);
-  const [showValidationBox, setShowValidationBox] = useState(false);
 
   // Loading states for validation
   const [isHcuValidating, setIsHcuValidating] = useState(false);
@@ -337,91 +335,32 @@ const InVehicleServer = ({
         )}
       </Box>
 
-      {/* Operations Buttons */}
-      <Grid container spacing={2} justifyContent="center" mt={3}>
-        <Grid item xs={12} sm={6}>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={() => {
-              setShowRevokeBox(prev => !prev);
-              setShowValidationBox(false);
-            }}
-            sx={{
-              background: 'linear-gradient(135deg, #00838F)',
-              color: '#fff',
-              fontWeight: 600,
-              fontSize: '15px',
-              borderRadius: 3,
-              boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
-              py: 1.5,
-              textTransform: 'none',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #006872 0%, #0097a7 100%)',
-                boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
-              }
-            }}
-          >
-            Revoke LCU Certificate
-          </Button>
+      {/* Revocation List and Validation Box Side by Side */}
+      <Grid container spacing={2} mt={3}>
+        <Grid item xs={6}>
+          <RevocationList
+            revokedList={revokedList}
+            onAddToCRL={handleAddToCRL}
+            onRemoveFromCRL={handleRemoveFromCRL}
+          />
         </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={() => {
-              setShowValidationBox(prev => !prev);
-              setShowRevokeBox(false);
-            }}
-            sx={{
-              background: 'linear-gradient(135deg, #00838F)',
-              color: '#fff',
-              fontWeight: 600,
-              fontSize: '15px',
-              borderRadius: 3,
-              boxShadow: '0 4px 15px rgba(0, 131, 143, 0.3)',
-              py: 1.5,
-              textTransform: 'none',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #006872 0%, #0097a7 100%)',
-                boxShadow: '0 6px 20px rgba(0, 131, 143, 0.4)',
-              }
-            }}
-          >
-            LCU Certificate Validation
-          </Button>
+        <Grid item xs={6}>
+          <ValidationBox
+            onValidateHCU={handleValidateHCU}
+            onValidateECU={handleValidateECU}
+            hcuValidationResult={hcuValidationResult}
+            ecuValidationResult={ecuValidationResult}
+            hcuTimestamps={hcuTimestamps}
+            ecuTimestamps={ecuTimestamps}
+            showECU={false}
+            onGoToLiveDemo={onGoToLiveDemo}
+            isHcuValidating={isHcuValidating}
+            isEcuValidating={isEcuValidating}
+            onResetHCU={handleResetHCU}
+            onResetECU={handleResetECU}
+          />
         </Grid>
       </Grid>
-
-      {/* Revocation List */}
-      {showRevokeBox && (
-        <RevocationList
-          onClose={() => setShowRevokeBox(false)}
-          revokedList={revokedList}
-          onAddToCRL={handleAddToCRL}
-          onRemoveFromCRL={handleRemoveFromCRL}
-        />
-      )}
-
-      {/* Validation Box */}
-      {showValidationBox && (
-        <ValidationBox
-          onClose={() => setShowValidationBox(false)}
-          onValidateHCU={handleValidateHCU}
-          onValidateECU={handleValidateECU}
-          hcuValidationResult={hcuValidationResult}
-          ecuValidationResult={ecuValidationResult}
-          hcuTimestamps={hcuTimestamps}
-          ecuTimestamps={ecuTimestamps}
-          showECU={false}
-          onGoToLiveDemo={onGoToLiveDemo}
-          isHcuValidating={isHcuValidating}
-          isEcuValidating={isEcuValidating}
-          onResetHCU={handleResetHCU}
-          onResetECU={handleResetECU}
-        />
-      )}
     </Container>
   );
 };

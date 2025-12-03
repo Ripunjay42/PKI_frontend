@@ -5,16 +5,13 @@ import {
   Stack,
   Paper,
   Grid,
-  IconButton,
   CircularProgress,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const ValidationBox = ({
-  onClose,
   onValidateHCU,
   onValidateECU,
   hcuValidationResult,
@@ -29,40 +26,21 @@ const ValidationBox = ({
   onResetECU,
 }) => {
   return (
-    <Box mt={3}>
+    <Box>
       <Paper
         elevation={1}
         sx={{
-          p: { xs: 1, sm: 3 },
+          p: 2,
           borderRadius: 3,
           background: 'linear-gradient(145deg, #ffffff 0%, #f5f5f5 100%)',
-          border: '1px solid #e0e0e0',
-          position: 'relative',
-          width: '70%',
-          margin: '0 auto',
         }}
       >
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
-            }
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-
         <Typography 
           variant="h6" 
           fontWeight={700} 
           gutterBottom 
-          textAlign="center" 
           color="primary.dark"
+          sx={{ mb: 2 }}
         >
           LCU Certificate Validation
         </Typography>

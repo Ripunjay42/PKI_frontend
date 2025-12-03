@@ -109,7 +109,7 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
                 transform: 'translate(-50%, -50%)',
                 backgroundColor: selectedComponent === comp.name ? '#FFD1DF' : '#FFD1DF',
                 color: '#000',
-                fontWeight: 500,
+                fontWeight: 600,
                 fontSize: {
                   xs: '0.65rem',
                   sm: '0.75rem',
