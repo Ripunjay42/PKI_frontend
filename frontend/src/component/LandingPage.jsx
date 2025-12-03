@@ -29,7 +29,7 @@ const LandingPage = ({ onModeSelect }) => {
         }}
       >
         {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-linear-to-br from-black/75 via-black/70 to-black/65" />
+        <div className="absolute inset-0 bg-linear-to-br from-black/55 via-black/50 to-black/45" />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-start gap-6 md:gap-8 h-full px-4 py-10 md:py-14">
