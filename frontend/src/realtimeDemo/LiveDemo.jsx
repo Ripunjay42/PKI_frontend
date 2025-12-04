@@ -5,9 +5,10 @@ import StatusBar from './StatusBar';
 import VehicleIndicators from './VehicleIndicators';
 import Car3DView from './Car3DView';
 import VideoStream from './VideoStream';
+import useMqttConnection from '../component/useMqttConnection';
 
-const LiveDemo = ({ onBack, isValidated = false, onGoToComponents }) => {
-  // const [isValidated, setIsValidated] = useState(propValidated);
+const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToComponents }) => {
+  const [isValidated, setIsValidated] = useState(initialValidated);
   const [time, setTime] = useState(new Date());
   const [speed, setSpeed] = useState(0);
   const [battery, setBattery] = useState(100);
@@ -15,6 +16,58 @@ const LiveDemo = ({ onBack, isValidated = false, onGoToComponents }) => {
   const [leftTurnActive, setLeftTurnActive] = useState(false);
   const [rightTurnActive, setRightTurnActive] = useState(false);
   const [tripDistance, setTripDistance] = useState(1000);
+
+  // MQTT connection for external validation
+  const handleValidationResponse = (response) => {
+    console.log('LiveDemo received validation response:', response);
+    
+    // Check both component and deviceName fields
+    const componentName = response.component || response.deviceName || '';
+    const isValid = response.status === 'valid' || response.Verify === true;
+    
+    console.log('Component name:', componentName);
+    console.log('Is valid:', isValid);
+    
+    // Match various component names for LCU/Headlight
+    if (componentName.toLowerCase().includes('light') || 
+        componentName.toLowerCase().includes('headlight') || 
+        componentName.toLowerCase().includes('lcu')) {
+      if (isValid) {
+        setIsValidated(true);
+        // Blink BOTH indicators simultaneously
+        setLeftTurnActive(true);
+        setRightTurnActive(true);
+        setTimeout(() => {
+          setLeftTurnActive(false);
+          setRightTurnActive(false);
+        }, 2000);
+        console.log('Triggered both indicators blink and video');
+      } else {
+        setIsValidated(false);
+      }
+    } else if (componentName.toLowerCase().includes('indicator')) {
+      if (isValid) {
+        setIsValidated(true);
+        // Blink BOTH indicators simultaneously
+        setLeftTurnActive(true);
+        setRightTurnActive(true);
+        setTimeout(() => {
+          setLeftTurnActive(false);
+          setRightTurnActive(false);
+        }, 2000);
+        console.log('Triggered both indicators blink');
+      } else {
+        setIsValidated(false);
+      }
+    }
+  };
+
+  const { isConnected } = useMqttConnection(handleValidationResponse);
+
+  // Update initial validation state when prop changes
+  useEffect(() => {
+    setIsValidated(initialValidated);
+  }, [initialValidated]);
 
   // Update time every second
   useEffect(() => {
@@ -132,15 +185,13 @@ const LiveDemo = ({ onBack, isValidated = false, onGoToComponents }) => {
         </button>
       </div>
 
-      {/* Test Validation Button */}
-        {/* <div className="absolute top-4 right-4 z-50">
-          <button
-            onClick={() => setIsValidated(!isValidated)}
-            className="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg flex items-center gap-2 transition-colors"
-          >
-            <span>Test Validate</span>
-          </button>
-        </div> */}
+      {/* MQTT Connection Status */}
+      <div className="absolute top-4 right-4 z-50">
+        <div className={`px-4 py-2 rounded-lg flex items-center gap-2 ${isConnected ? 'bg-green-800/80' : 'bg-red-800/80'} text-white`}>
+          <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'} animate-pulse`}></div>
+          <span className="text-sm">{isConnected ? 'MQTT Connected' : 'MQTT Disconnected'}</span>
+        </div>
+      </div>
 
       {/* Oval Dashboard Container */}
       <div className="relative w-full max-w-[1220px] aspect-16/7.6">

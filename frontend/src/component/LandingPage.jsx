@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import reepImage from "../assets/reepl3.png";
+import reepImage from "../assets/auto0.png";
 import { FaShieldAlt, FaCertificate, FaLock } from 'react-icons/fa';
 
 // Simple feature metadata with descriptions for interactivity

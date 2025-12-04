@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import vehicle from "./assets/vehicle.png";
-import sunboardbike from "./assets/reep.png";
+import sunboardbike from "./assets/auto1.png";
 import { useState } from 'react';
 import './index.css';
 

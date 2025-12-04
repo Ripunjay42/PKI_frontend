@@ -134,7 +134,7 @@ function App() {
                 xs: 'column',
                 md: 'row',
               },
-              alignItems: 'flex-start',
+              alignItems: {lg: 'flex-start', md: 'center', xs: 'center'},
               justifyContent: 'center',
               p: { xs: 1, md: 3 },
               minHeight: '60vh',

@@ -1,13 +1,14 @@
 import { Grid, Box, Typography, Button, Tooltip } from '@mui/material';
-import sunboard2 from '../../assets/reep.png';
+import sunboard2 from '../../assets/auto2.png';
 import tvs_logo from '../../assets/tvs_logo.png';
+import InVehicleServer from '../InVehicleServerNew';
 
 const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick }) => {
   const components = [
-    { name: 'In-Vehicle Server', top: '53.8%', left: '72%' },
-    { name: 'Light control Unit', top: '54.5%', left: '53.3%' },
-    { name: 'Instrument Cluster', top: '37%', left: '34%' },
-    { name: 'Indicators', top: '53%', left: '15.8%' },
+    { name: 'In-Vehicle Server', top: '53.9%', left: '68.4%' },
+    { name: 'Light control Unit', top: '53.9%', left: '54.4%' },
+    { name: 'Instrument Cluster', top: '43%', left: '33.5%' },
+    { name: 'Indicators', top: '54%', left: '17%' },
   ];
 
   return (
@@ -18,11 +19,11 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         py: 2,
         position: selectedComponent ? 'sticky' : 'static',
         top: 0,
-        maxWidth: selectedComponent ? '50vw' : '90vw',
+        maxWidth: selectedComponent ? {sm: '90vw', md: '90vw', lg: '50vw'} : '90vw',
         width: '90%',
       }}
     >
@@ -107,33 +108,28 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
                 top: comp.top,
                 left: comp.left,
                 transform: 'translate(-50%, -50%)',
-                backgroundColor: selectedComponent === comp.name ? '#FFD1DF' : '#FFD1DF',
+                backgroundColor: selectedComponent === comp.name ? '#F0FFFF' : '#F0FFFF',
                 color: '#000',
                 fontWeight: 600,
                 fontSize: {
-                  xs: '0.65rem',
-                  sm: '0.75rem',
-                  md: '0.85rem',
-                  lg: '0.90rem',
+                  xs: '0.5rem',
+                  sm: '0.6rem',
+                  md: '0.75rem',
+                  lg: '0.75rem',
                 },
-                // border: selectedComponent === comp.name ? '1px solid rgba(255, 140, 60, 1)' : '1px solid rgba(255, 140, 60, 1)',
+                border: '1px solid #000000',
                 borderRadius: '8px',
-                px: { xs: 0.5, sm: 1, md: 3 },
-                py: { xs: 0.5, sm: 1, md: 2 },
-                minWidth: { xs: '90px', sm: '110px', md: '150px' },
-                maxWidth: { xs: '100px', sm: '120px', md: '150px' },
+                px: { xs: 0.8, sm: 0.5, md: 0.6 },
+                py: { xs: 0.6, sm: 0.8, md: 0.6 },
+                minWidth: { xs: '50px', sm: '55px', md: '50px' },
+                maxWidth: comp.name === InVehicleServer ? { xs: '55px', sm: '65px', md: '70px', lg: '80px', xl: '80px' } :{ xs: '65px', sm: '75px', md: '80px', lg: '90px', xl: '100px' },
+                minHeight: { xs: '28px', sm: '36px', md: '40px' },
                 textAlign: 'center',
                 whiteSpace: 'normal',
-                lineHeight: 1.2,
+                lineHeight: 1.1,
                 zIndex: 5,
                 textTransform: 'none',
-                boxShadow: selectedComponent === comp.name 
-                  ? '0 6px 20px rgba(25, 118, 210, 0.5)' 
-                  : '0 4px 15px rgba(255, 140, 60, 0.4)',
-                '&:hover': {
-                  backgroundColor: selectedComponent === comp.name ? '#FFD1DF' : '#FFD1DF',
-                  // boxShadow: '0 6px 20px rgba(255, 140, 60, 0.6)',
-                },
+                transition: 'all 0.2s ease',
               }}
             >
               {comp.name}
