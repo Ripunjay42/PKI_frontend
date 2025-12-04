@@ -17,39 +17,63 @@ const LandingPage = ({ onModeSelect }) => {
   };
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-y-auto">
       {/* Background Section */}
       <div
         className="flex-1 relative"
         style={{
-          backgroundImage: `url(${reepImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
+          // backgroundImage: `url(${reepImage})`,
+          backgroundColor: '#DBDBDB',
         }}
       >
         {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-linear-to-br from-black/55 via-black/50 to-black/45" />
+        {/* <div className="absolute inset-0 bg-linear-to-br from-black/75 via-black/80 to-black/85" /> */}
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center justify-start gap-6 md:gap-8 h-full px-4 py-10 md:py-14">
+        <div className="relative z-10 flex flex-col items-center justify-start gap-4 md:gap-5 h-full px-2 py-2 md:py-2 overflow-y-auto">
           {/* Hero */}
-          <div className="text-center px-4 py-6 md:py-8 rounded-2xl backdrop-blur-xs border border-white/3 bg-white/2 shadow-xs">
-            <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-linear-to-r from-cyan-300 via-teal-200 to-sky-300 drop-shadow-sm tracking-tight">
+          <div className="text-center px-1 py-1 md:py-1 ">
+            <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-cyan-800">
               PKI Security Demonstration
             </h1>
-            <p className="text-base md:text-xl font-medium text-white/90 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-xl font-medium text-black max-w-3xl mx-auto leading-relaxed">
               A modern, certificate-driven trust framework for secure automotive endpoints.
             </p>
           </div>
 
-          
+          {/* Featured Image Section */}
+          <div className="w-full flex justify-center px-2 mt-2 md:mt-4">
+            <div className="relative max-w-xl w-full group">
+              {/* Decorative corner accents */}
+              <div className="absolute -top-2 -left-2 w-12 h-12 border-t-4 border-l-4 border-cyan-600 rounded-tl-xl"></div>
+              <div className="absolute -top-2 -right-2 w-12 h-12 border-t-4 border-r-4 border-teal-600 rounded-tr-xl"></div>
+              <div className="absolute -bottom-2 -left-2 w-12 h-12 border-b-4 border-l-4 border-teal-600 rounded-bl-xl"></div>
+              <div className="absolute -bottom-2 -right-2 w-12 h-12 border-b-4 border-r-4 border-cyan-600 rounded-br-xl"></div>
+              
+              {/* Glowing background effect */}
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-600/30 via-transparent to-teal-600/30 rounded-2xl blur-2xl scale-110"></div>
+              
+              {/* Inner frame with gradient border */}
+              <div className="relative p-1 rounded-2xl bg-linear-to-br from-cyan-600/50 via-slate-800/50 to-teal-600/50 shadow-2xl">
+                <div className="bg-cyan-200/45 rounded-xl p-2">
+                  <img 
+                    src={reepImage} 
+                    alt="PKI Security Automotive" 
+                    className="w-full h-auto max-h-96 object-contain rounded-lg"
+                  />
+                </div>
+              </div>
+              
+              {/* Subtle animated pulse rings */}
+              <div className="absolute inset-0 rounded-2xl border border-cyan-500/20 animate-pulse"></div>
+            </div>
+          </div>
 
           {/* Bottom container: keep middle and last sections at bottom */}
-          <div className="mt-auto w-full flex flex-col items-center gap-4 md:gap-6">
+          <div className="w-full flex flex-col items-center gap-3 md:gap-4 mt-2">
             {/* Interactive Features (middle) */}
             <div className="w-full lg:w-3/4 xl:w-3/7">
-              <h2 className="text-center text-xl md:text-2xl font-semibold text-white mb-3 md:mb-4 tracking-wide">In-Vehicle Network Security</h2>
+              <h2 className="text-center text-xl md:text-2xl font-semibold text-black mb-2 md:mb-3 tracking-wide">In-Vehicle Network Security</h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
                 {FEATURE_META.map(f => {
                   const expanded = activeFeature === f.id;
@@ -61,7 +85,7 @@ const LandingPage = ({ onModeSelect }) => {
                     >
                       <div className="flex items-center gap-2 mb-1">
                         <span className="p-2 rounded-xl bg-linear-to-br from-cyan-600 to-teal-600 text-white shadow-inner shadow-black/40 group-hover:scale-105 transition-transform">{f.icon}</span>
-                        <span className="text-sm font-semibold text-white tracking-wide">{f.title}</span>
+                        <span className="text-sm font-semibold text-black tracking-wide">{f.title}</span>
                       </div>
                     </button>
                   );

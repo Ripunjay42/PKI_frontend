@@ -34,13 +34,6 @@ const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToCompone
         componentName.toLowerCase().includes('lcu')) {
       if (isValid) {
         setIsValidated(true);
-        // Blink BOTH indicators simultaneously
-        setLeftTurnActive(true);
-        setRightTurnActive(true);
-        setTimeout(() => {
-          setLeftTurnActive(false);
-          setRightTurnActive(false);
-        }, 2000);
         console.log('Triggered both indicators blink and video');
       } else {
         setIsValidated(false);
@@ -48,13 +41,6 @@ const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToCompone
     } else if (componentName.toLowerCase().includes('indicator')) {
       if (isValid) {
         setIsValidated(true);
-        // Blink BOTH indicators simultaneously
-        setLeftTurnActive(true);
-        setRightTurnActive(true);
-        setTimeout(() => {
-          setLeftTurnActive(false);
-          setRightTurnActive(false);
-        }, 2000);
         console.log('Triggered both indicators blink');
       } else {
         setIsValidated(false);
@@ -176,22 +162,22 @@ const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToCompone
           <span>←</span>
           <span>Exit</span>
         </button>
-        <button
+        {/* <button
           onClick={onGoToComponents}
           className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg flex items-center gap-2 transition-colors"
         >
           <span>←</span>
           <span>Static Demo</span>
-        </button>
+        </button> */}
       </div>
 
       {/* MQTT Connection Status */}
-      <div className="absolute top-4 right-4 z-50">
+      {/* <div className="absolute top-4 right-4 z-50">
         <div className={`px-4 py-2 rounded-lg flex items-center gap-2 ${isConnected ? 'bg-green-800/80' : 'bg-red-800/80'} text-white`}>
           <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'} animate-pulse`}></div>
           <span className="text-sm">{isConnected ? 'MQTT Connected' : 'MQTT Disconnected'}</span>
         </div>
-      </div>
+      </div> */}
 
       {/* Oval Dashboard Container */}
       <div className="relative w-full max-w-[1220px] aspect-16/7.6">
