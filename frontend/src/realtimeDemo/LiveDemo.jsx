@@ -162,13 +162,13 @@ const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToCompone
           <span>←</span>
           <span>Exit</span>
         </button>
-        {/* <button
+        <button
           onClick={onGoToComponents}
           className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg flex items-center gap-2 transition-colors"
         >
           <span>←</span>
-          <span>Static Demo</span>
-        </button> */}
+          <span>PKI Demonstration</span>
+        </button>
       </div>
 
       {/* MQTT Connection Status */}

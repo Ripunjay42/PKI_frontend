@@ -1,9 +1,14 @@
-import { Grid, Box, Typography, Button, Tooltip } from '@mui/material';
+import { Grid, Box, Typography, Button, Tooltip, IconButton } from '@mui/material';
+import { Help } from '@mui/icons-material';
+import { useState } from 'react';
 import sunboard2 from '../../assets/auto2.png';
 import tvs_logo from '../../assets/tvs_logo.png';
 import InVehicleServer from '../InVehicleServerNew';
+import HelpDialog from './HelpDialog';
 
 const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick }) => {
+  const [helpOpen, setHelpOpen] = useState(false);
+  
   const components = [
     { name: 'In-Vehicle Server', top: '53.9%', left: '68.4%' },
     { name: 'Light control Unit', top: '53.9%', left: '54.4%' },
@@ -48,6 +53,7 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
             px: 1,
             borderRadius: 2,
             mb: 2,
+            position: 'relative',
           }}
         >
           <Typography 
@@ -61,7 +67,54 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
           >
             PKI Security Demonstration
           </Typography>
+          
+          {/* Help Button with Text */}
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+            }}
+          >
+            <Typography
+              variant="caption"
+              sx={{
+                color: '#fff',
+                fontWeight: 500,
+                cursor: 'pointer',
+                display: { xs: 'none', sm: 'block' },
+                '&:hover': {
+                  textDecoration: 'underline',
+                },
+              }}
+              onClick={() => setHelpOpen(true)}
+            >
+              Help & Instructions
+            </Typography>
+            <Tooltip title="Help & Instructions" arrow>
+              <IconButton
+                onClick={() => setHelpOpen(true)}
+                size="small"
+                sx={{
+                  bgcolor: 'rgba(255,255,255,0.2)',
+                  color: '#fff',
+                  '&:hover': {
+                    bgcolor: 'rgba(255,255,255,0.3)',
+                  },
+                }}
+              >
+                <Help fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Box>
+
+        {/* Help Dialog */}
+        <HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} />
         
         <img
           src={sunboard2}

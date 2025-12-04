@@ -17,38 +17,23 @@ const Indicators = () => {
   const indicatorsData = {
     title: "Vehicle Indicators",
     function: [
-      "Provides visual feedback to driver and surrounding vehicles about vehicle status and intentions.",
-      "Controls turn signals (left/right indicators) for directional changes.",
-      "Manages hazard lights for emergency situations.",
-      "Integrates with vehicle's CAN bus for synchronized operation.",
-      "Receives control signals from In-Vehicle Server for automated indicator operations.",
+  `Indicators function as alert systems that highlight critical conditions, triggering actions or further investigation.`,  
+  `Indicators serve as measuring tools that quantify progress against goals, targets, or benchmarks.`,
+  `They act as visual shorthand that conveys complex information quickly and clearly to stakeholders.`,
     ],
     Spec: {
-      "1] Indicator Control Module": [
-        "Microcontroller: ARM Cortex-M0+ @ 48 MHz",
-        "Flash Memory: 256 KB",
-        "RAM: 32 KB",
-        "Operating Voltage: 12V DC",
-        "CAN Interface: CAN 2.0B compliant",
+      "1] LED Indicators": [
+       "Voltage: 12 Volts (DC).",
+      "Wattage: 5 Watts.",
+      "Light Source: Energy-saving LED.",
       ],
-      "2] LED Indicators": [
-        "Type: High-brightness amber LEDs",
-        "Power Consumption: 5W per indicator",
-        "Flash Rate: 60-120 flashes per minute",
-        "Lifespan: 50,000+ hours",
-        "Water Resistance: IP67 rated",
+      "2] Build & Durability:": [
+        "Material: High-quality ABS plastic with a flexible rubber stem.",
+        "Features: Unbreakable, waterproof, shockproof, and anti-corrosion.",
       ],
-      "3] Communication Interface": [
-        "Protocol: CAN Bus",
-        "Data Rate: Up to 500 Kbps",
-        "Message Format: Standard CAN frame",
-        "Priority: High priority messages for safety-critical operations",
-      ],
-      "4] Safety Features": [
-        "Auto-cancel after turn completion",
-        "Fail-safe mode in case of communication loss",
-        "Diagnostic capability for fault detection",
-        "Emergency hazard activation support",
+      "3] Compatibility & Support:": [
+        "Universally fits all bikes and motorcycles.",
+        "Backed by a 3-month manufacturer's warranty against defects.",
       ],
     },
   };
@@ -105,23 +90,6 @@ const Indicators = () => {
           ))}
         </AccordionDetails>
       </Accordion>
-
-      {/* Additional Info Box */}
-      <Box
-        sx={{
-          mt: 3,
-          p: 2,
-          borderRadius: 2,
-          bgcolor: '#f5f5f5',
-          border: '1px solid #e0e0e0',
-        }}
-      >
-        <Typography variant="body2" color="text.secondary">
-          <strong>Note:</strong> The indicator system is a critical safety component that communicates 
-          the vehicle's intended movements to other road users. It operates in conjunction with the 
-          In-Vehicle Server to ensure secure and reliable signaling operations.
-        </Typography>
-      </Box>
     </Container>
   );
 };
