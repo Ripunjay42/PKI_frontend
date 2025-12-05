@@ -108,10 +108,10 @@ const LandingPage = ({ onModeSelect }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
-                    <h4 className="text-xl font-bold text-white tracking-wide">Static Demo</h4>
+                    {/* <h4 className="text-xl font-bold text-white tracking-wide">Static Demo</h4> */}
                   </div>
                   <p className="text-white/85 leading-relaxed text-sm mb-5">
-                    Inspect PKI trust anchors, certificate metadata and validation flow for the Light Control Unit in a controlled environment.
+                    Inspect certificate validation and PKI security for the Light Control Unit.
                   </p>
                   <div className="relative">
                     <span className="absolute inset-0 rounded-xl bg-linear-to-r from-cyan-500/0 via-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 blur-sm transition" />
@@ -136,10 +136,10 @@ const LandingPage = ({ onModeSelect }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <h4 className="text-xl font-bold text-white tracking-wide">Live Demo</h4>
+                    {/* <h4 className="text-xl font-bold text-white tracking-wide">Live Demo</h4> */}
                   </div>
                   <p className="text-white/85 leading-relaxed text-sm mb-5">
-                    Observe real-time indicator & headlight telemetry validated against PKI, published securely over MQTT channels.
+                    Observe indicators validated against PKI, published securely over MQTT channels.
                   </p>
                   <div className="relative">
                     <span className="absolute inset-0 rounded-xl bg-linear-to-r from-teal-400/0 via-teal-300/10 to-transparent opacity-0 group-hover:opacity-100 blur-sm transition" />

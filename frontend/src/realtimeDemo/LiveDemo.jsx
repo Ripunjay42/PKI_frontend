@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CheckCircle, XCircle } from 'lucide-react';
 import Speedometer from './Speedometer';
 import BatteryMeter from './BatteryMeter';
 import StatusBar from './StatusBar';
@@ -171,13 +172,22 @@ const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToCompone
         </button>
       </div>
 
-      {/* MQTT Connection Status */}
-      {/* <div className="absolute top-4 right-4 z-50">
-        <div className={`px-4 py-2 rounded-lg flex items-center gap-2 ${isConnected ? 'bg-green-800/80' : 'bg-red-800/80'} text-white`}>
-          <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'} animate-pulse`}></div>
-          <span className="text-sm">{isConnected ? 'MQTT Connected' : 'MQTT Disconnected'}</span>
+      {/* Certificate Validation Status */}
+      <div className="absolute top-4 right-4 z-50">
+        <div className={`px-4 py-2.5 rounded-lg flex items-center gap-2.5 backdrop-blur-md border `}>
+          {isValidated ? (
+            <>
+              <CheckCircle size={20} className="text-green-400" />
+              <span className="text-sm text-green-500font-semibold">Certificate Validated</span>
+            </>
+          ) : (
+            <>
+              <XCircle size={20} className="text-red-400" />
+              <span className="text-sm text-red-500 font-semibold">Certificate Not Validated</span>
+            </>
+          )}
         </div>
-      </div> */}
+      </div>
 
       {/* Oval Dashboard Container */}
       <div className="relative w-full max-w-[1220px] aspect-16/7.6">
