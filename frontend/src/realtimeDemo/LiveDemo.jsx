@@ -178,7 +178,7 @@ const LiveDemo = ({ onBack, isValidated: initialValidated = false, onGoToCompone
           {isValidated ? (
             <>
               <CheckCircle size={20} className="text-green-400" />
-              <span className="text-sm text-green-500font-semibold">Certificate Validated</span>
+              <span className="text-sm text-green-500 font-semibold">Certificate Validated</span>
             </>
           ) : (
             <>
