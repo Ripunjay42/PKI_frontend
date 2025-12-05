@@ -86,7 +86,7 @@ const ComponentsView = ({ selectedComponent, validationStatus, onComponentClick 
                 color: '#fff',
                 fontWeight: 500,
                 cursor: 'pointer',
-                display: { xs: 'none', sm: 'block' },
+                display: {xs: 'none', sm: 'none', md: 'block' },
                 '&:hover': {
                   textDecoration: 'underline',
                 },
