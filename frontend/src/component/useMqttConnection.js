@@ -39,7 +39,7 @@ const useMqttConnection = (onValidationResponse) => {
 
     // Only create new connection if not already connected
     if (!globalMqttClient) {
-      const mqttClient = mqtt.connect('ws://192.168.137.70:8080/mqtt', {
+      const mqttClient = mqtt.connect('ws://192.168.137.249:8080/mqtt', {
         clientId: 'react_mqtt_pub_' + Math.random().toString(16).slice(2, 10),
         clean: true,
         connectTimeout: 4000,
