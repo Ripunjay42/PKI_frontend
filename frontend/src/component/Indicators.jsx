@@ -10,8 +10,10 @@ import {
   ListItem,
   ListItemText,
   Box,
+  Paper,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import indicator from "../assets/indicators.jpeg";
 
 const Indicators = () => {
   const indicatorsData = {
@@ -90,6 +92,31 @@ const Indicators = () => {
           ))}
         </AccordionDetails>
       </Accordion>
+            {/* Image Display */}
+      <Paper
+        elevation={2}
+        sx={{
+          width: "100%",
+          maxWidth: 350,
+          mx: "auto",
+          mt: 3,
+          p: 2,
+          borderRadius: 3,
+          textAlign: "center",
+          bgcolor: '#fff',
+        }}
+      >
+        <img
+          src={indicator}
+          alt="indicator"
+          style={{
+            width: "100%",
+            maxHeight: "300px",
+            objectFit: "contain",
+            borderRadius: 12,
+          }}
+        />
+      </Paper>
     </Container>
   );
 };

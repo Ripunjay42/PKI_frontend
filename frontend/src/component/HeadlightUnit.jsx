@@ -3,7 +3,7 @@ import {
   Container,
   Accordion,
   AccordionSummary,
-  AccordionDetails,
+  AccordionDetails,  
   Divider,
   Typography,
   List,
@@ -11,7 +11,6 @@ import {
   ListItemText,
   Box,
   Chip,
-  Paper,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -179,32 +178,6 @@ const HeadLightUnit = ({ validationStatus }) => {
           ))}
         </AccordionDetails>
       </Accordion>
-
-      {/* Image Display */}
-      <Paper
-        elevation={2}
-        sx={{
-          width: "100%",
-          maxWidth: 350,
-          mx: "auto",
-          mt: 3,
-          p: 2,
-          borderRadius: 3,
-          textAlign: "center",
-          bgcolor: '#fff',
-        }}
-      >
-        <img
-          src={headlight}
-          alt="headlight"
-          style={{
-            width: "100%",
-            maxHeight: "300px",
-            objectFit: "contain",
-            borderRadius: 12,
-          }}
-        />
-      </Paper>
     </Container>
   );
 };
